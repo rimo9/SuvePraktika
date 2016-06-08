@@ -1,0 +1,267 @@
+html, body {
+    margin:0;
+    padding:0;
+    font-family: "Lucida Grande", Verdana;
+    font-size: 0.9em;
+    text-align: center;
+//    background-color: #dfeffc;/*#F2F2F2;*/
+}
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.text {
+	margin-left:auto;
+	margin-right:auto;
+    text-align: left;
+	width:840px;
+}
+
+.tip-text {
+    text-align: left;
+}
+
+input, select {
+    font-size:1.0em;
+}
+
+h1 {
+    font-size:1.1em;
+    text-decoration:none;
+    font-weight:bold;
+    color:#2e6e9e;
+}
+
+a {
+    color:#23A4FF;
+}
+
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+text2 {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+/* GRAFOS */
+#graph-tabs {
+    width: 1200px;
+    height: 570px;
+	top:8px;
+    margin:0 auto;
+    position:relative;
+}
+
+#eventtab {
+    width:1200px;
+    height:530px;
+    margin:auto;
+    overflow:hidden;
+    position:absolute;
+	text-align: left;
+	padding-left: 5%;
+}
+
+
+#contexttab {
+    width:1200px;
+    height:530px;
+    margin:auto;
+    overflow:hidden;
+    position:absolute;
+}
+
+
+/*TOOLTIPS*/
+.tip {
+    color: #222222;
+    width: 139px;
+    background-color: white;
+    border:1px solid #ccc;
+    -moz-box-shadow:#555 2px 2px 8px;
+    -webkit-box-shadow:#555 2px 2px 8px;
+    -o-box-shadow:#555 2px 2px 8px;
+    box-shadow:#555 2px 2px 8px;
+    opacity:0.9;
+    filter:alpha(opacity=90);
+    font-size:10px;
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+    padding:7px;
+}
+
+
+
+
+
+#credits {
+	text-align: left;
+}
+
+/* TABLAS */
+#tables-panel {
+    width: 950px;
+    height: 100px;
+	top:16px;
+    margin: auto;
+    position:relative;
+}
+
+
+#artifactsTagCloudTable {
+	position:absolute;
+	right:50px;
+	width:400px;
+
+    overflow:scroll;
+}
+
+#selectEventType {
+	position:absolute;
+	right:50px;
+	width:400px;
+  top:50px;
+
+}
+
+#selectEventAmount {
+	position:absolute;
+	right:50px;
+	width:400px;
+top:100px;
+text-align: right;
+}
+
+#viz {
+	position:absolute;
+	left:50px;
+	width:750px;
+top:50px;
+
+}
+
+
+#eventsTagCloudTable {
+	position:absolute;
+	right:50px;
+	top: 280px;
+	width:400px;
+
+    overflow:scroll;
+}
+
+#SNbutton {
+	position:absolute;
+	right:50px;
+
+}
+
+#filesSN {
+  position:absolute;
+  right:50px;
+  width:320px;
+  top: 180px;
+  max-height:160px;
+}
+
+#filesSNTable tbody.scrollContent {
+  max-height:160px;
+}
+
+#tagsSN {
+	position:absolute;
+	right:50px;
+	top: 380px;
+	width:320px;
+  max-height:160px;
+}
+
+#tagsSNTable tbody.scrollContent {
+  max-height:160px;
+}
+
+#textSN {
+	position:absolute;
+	right:50px;
+
+}
+
+
+
+#eventsTable {
+	position:absolute;
+	left:300px;
+
+	width:900px;
+
+    overflow:scroll;
+}
+
+
+
+/* SCROLL TABLAS */
+tbody.fixedHeader {
+	height: 20px;
+}
+
+thead.fixedHeader tr {
+	display: block;
+}
+
+tbody.scrollContent {
+	display: block;
+max-height: 200px;
+	overflow: auto;
+	width: 100%;
+}
+
+
+tbody.scrollContent2 {
+	display: block;
+max-height: 470px;
+	overflow: auto;
+	width: 100%;
+}
+
+thead.fixedHeader th {
+	width: 400px;
+}
+
+#artifactsTagCloudTable tbody.scrollContent td {
+	width: 384px;
+}
+
+svg {
+
+    height: 500px;
+    width: 750px;
+  //  border: 1px solid gray;
+  }
+
+.forcePointer {
+  cursor: pointer;
+}
+
+svg text {
+  cursor: pointer;
+}
