@@ -44,7 +44,7 @@
       console.log('Successfully started');
 	  window.addEventListener('hashchange', this.routeChange.bind(this));
       //vaatan mis lehel olen
-      console.log(window.location.hash);
+      //console.log(window.location.hash);
       if(!window.location.hash){
         window.location.hash = "eventtab";
       }else{
@@ -58,7 +58,7 @@
       if(this.routes[this.currentRoute]){
         //jah olemas
         this.updateMenu();
-        console.log('>>> '+this.currentRoute);
+        //console.log('>>> '+this.currentRoute);
         //käivitan selle lehe jaoks ettenähtud js
         this.routes[this.currentRoute].render();
       }else{
