@@ -1,63 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-  <title>Dashboard</title>
-  <!-- CSS Files -->
-  <link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
-  <link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
-
-  <!-- JIT and D3 Library File -->
-
-
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-
-    <script type="text/javascript" src="jit-yc.js"></script>
-
-  <script src="d3/d3.v3.min.js"></script>
-  <script src="d3/d3.layout.cloud.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" language="Javascript" src="http://api.easyjquery.com/easyjquery.js"></script>
-
-  <!-- MINE -->
-
-  <script src="js/dashboardUtil.js"></script>
-
-
-  <script>
-
-
-var edgelist = [];
-  var events = [];
-  var actions = [];
-  var users = [];
-  var tagsAutocomplete = [];
-  var artifactsAutocomplete = [];
-  var tags = [];
-  var tag2owner = new Object();
-  var document2owner = new Object();
-
-  </script>
-  <script src="js/main.js"></script>
-
-
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="UTF-8">
+	<title>Hi</title>
+	<!-- CSS files -->
+	<link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
+	<link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+	<!-- JS files-->
+	<script src="js/main.js"></script>
 </head>
-
-
 <body>
-
-
   <div id="graph-tabs">
-    <ul>
-      <li><a href="#eventtab"><span id="eventtablab">Filter Events</span></a></li>
-      <li><a href="#actortab"><span id="actortablab">Social Network</span></a></li>
-      <li><a href="#contexttab"><span id="contexttablab">Tag Cloud</span></a></li>
-
-
-    </ul>
+    <!-- menu start -->
+	<nav class="menu">
+		<ul class="menu-list">
+			<li><a href="#eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
+			<li><a href="#actortab" class="menu-link actortab">Social Network</a></li>
+			<li><a href="#contexttab" class="menu-link contexttab">Tag Cloud</a></li>
+		</ul>
+	</nav>
+	<!-- menu end -->
+	
+	<!-- eventtab start -->
     <div id="eventtab">
-
 
       <table id="eventsTable" class="ui-widget-content ui-corner-all" >
         <thead class="fixedHeader">
@@ -69,10 +35,8 @@ var edgelist = [];
         </tbody>
       </table>
       <br><br><br>
+	  
       <div class="ui-widget">
-
-
-
         <form id="eventSelectionForm">
           <select width="220"  style="width: 220px;" id="selectUser">
             <option value="">Choose an actor to filter events</option>
@@ -93,75 +57,65 @@ var edgelist = [];
             </div>
               <br><br><br>
         </form>
-
-
-
           <button type="button" name="Submit" value="Filter" onclick="printEventList()">Filter Events</button>
         </div>
-      </div><!-- eventtab end -->
+      </div>
+	  <!-- eventtab end -->
 
 
-
-        <div id="actortab">
-
-          <form id="snSelectionForm">
+	<!-- actortab start -->
+    <div id="actortab">
+	
+        <form id="snSelectionForm">
             <select width="220"  style="width: 320px;" id="selectEventType">
               <option value="">Represent all types of uptake events</option>
             </select>
             <br><br>
             <div class="ui-widget" align="right" id="textSN">
               <label for="selectEventAmount">Number of uptakes events needed to represent a link: </label><br>
-</div>
-              <input width="220"  style="width: 310px;" id="selectEventAmount" value="1">
-
-
+			</div>
+            <input width="220"  style="width: 310px;" id="selectEventAmount" value="1">
             <br><br><br>
-<button type="button" name="Submit" value="Filter" onclick="createNetwork()" id="SNbutton">Represent new network</button>
-          </form>
-
-
-
+			<button type="button" name="Submit" value="Filter" onclick="createNetwork()" id="SNbutton">Represent new network</button>
+        </form>
+		
           <div id="viz">
-
             <svg>
             </svg>
           </div>
 
+		<div class="ui-widget">
+				<div id="tagsSN">
+				  <table id="tagsSNTable" class="ui-widget-content ui-corner-all" >
+					<thead class="fixedHeader">
+					  <tr>
+						<th class="ui-widget-header ui-corner-all">Click on an element to see the tags related</th>
+					  </tr>
+					</thead>
+					<tbody class="scrollContent">
+					</tbody>
+				  </table>
+				</div>
 
 
+				<div id="filesSN">
+				  <table id="filesSNTable" class="ui-widget-content ui-corner-all" >
+					<thead class="fixedHeader">
+					  <tr>
+						<th class="ui-widget-header ui-corner-all">Click on an element to see the files related</th>
+					  </tr>
+					</thead>
+					<tbody class="scrollContent">
+					</tbody>
+				  </table>
+				</div>
+		</div>
+	</div>
+	<!-- actortab end -->
 
 
-<div class="ui-widget">
-        <div id="tagsSN">
-          <table id="tagsSNTable" class="ui-widget-content ui-corner-all" >
-            <thead class="fixedHeader">
-              <tr>
-                <th class="ui-widget-header ui-corner-all">Click on an element to see the tags related</th>
-              </tr>
-            </thead>
-            <tbody class="scrollContent">
-            </tbody>
-          </table>
-        </div>
-
-
-        <div id="filesSN">
-          <table id="filesSNTable" class="ui-widget-content ui-corner-all" >
-            <thead class="fixedHeader">
-              <tr>
-                <th class="ui-widget-header ui-corner-all">Click on an element to see the files related</th>
-              </tr>
-            </thead>
-            <tbody class="scrollContent">
-            </tbody>
-          </table>
-        </div>
-</div>
-</div><!-- actortab end -->
-
-
-
-        <div id="contexttab">
+	<!-- contexttab start -->
+    <div id="contexttab">
 
           <div id="artifactsTagCloud">
             <table id="artifactsTagCloudTable" class="ui-widget-content ui-corner-all" >
@@ -188,21 +142,8 @@ var edgelist = [];
             </table>
           </div>
 
-        </div>
-
-
-
-      </div>
-
-
-
-
-
-
-<br />
-
-</p>
-
-
+    </div>
+	<!-- contexttab end -->
+    </div>
 </body>
 </html>
