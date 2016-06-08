@@ -24,6 +24,7 @@
     "eventtab" : {
 		render: function(){
 			console.log('Under eventtab');
+			App.instance.createTable();
 		}
     },
     "actortab" : {
@@ -72,7 +73,10 @@
       document.querySelector('.active-menu').className=document.querySelector('.active-menu').className.replace(' active-menu', '');
       //käesolevale lehele lisan juurde
       document.querySelector('.'+this.currentRoute).className+=' active-menu';
-    }
+    },
+	createTable: function(){
+		console.log("creating table");
+	}
 	
   };
 
