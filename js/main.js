@@ -55,27 +55,25 @@
     },
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
-      //kas leht on olemas
       if(this.routes[this.currentRoute]){
-        //jah olemas
         this.updateMenu();
         //console.log('>>> '+this.currentRoute);
-        //käivitan selle lehe jaoks ettenähtud js
         this.routes[this.currentRoute].render();
       }else{
-        //404? ei ole
+        //404 not found
         console.log('404');
         window.location.hash = 'home-view';
       }
     },
 	updateMenu: function(){
-      //kui menüül on active-menu siis võtame ära
+      //if active-menu then remove
       document.querySelector('.active-menu').className=document.querySelector('.active-menu').className.replace(' active-menu', '');
-      //käesolevale lehele lisan juurde
+      //add active-menu
       document.querySelector('.'+this.currentRoute).className+=' active-menu';
     },
 	createTable: function(){
 		console.log("creating table");
+		
 	}
 	
   };
