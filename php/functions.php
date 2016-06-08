@@ -1,5 +1,5 @@
 <?php
-	require_once("../configglobal.php");
+	require_once("../../configglobal.php");
 	require_once("User.class.php");
 
 	session_start();
