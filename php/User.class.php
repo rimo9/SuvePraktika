@@ -12,21 +12,12 @@ class User{
 		//START
 		$array = '[';
 		
-		$stmt = $this->connection->prepare("SELECT ExId FROM runner_path WHERE ExId = ?");
-		$stmt->bind_param("s", $ExId);
-		$stmt->execute();
-		if(!$stmt->fetch()){
-			$array.=']';
-			return $array;
-		}
-		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT lat, lng FROM runner_path WHERE ExId = ?");
-		$stmt->bind_param("s", $ExId);
-		$stmt->bind_result($lat, $lng);
+		$stmt = $this->connection->prepare("SELECT id,user, action, document, context, time, uptake FROM DVS");
+		$stmt->bind_result( $id,$user,$action,$document,$context,$time,$uptake);
 		$stmt->execute();
 		while($stmt->fetch()){
-			$array.='{"lat":"'.$lat.'","lng":"'.$lng.'"},';
+			$array.='{"id":"'.$id.'","user":"'.$user.'","action":"'.$action.'","document":"'.$document.'","context":"'.$context.'","time":"'.$time.'","uptake":"'.$uptake.'"},';
 		}
 		$stmt->close();
 		$array = substr($array,0, -1);
