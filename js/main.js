@@ -13,7 +13,9 @@
 
     //All modifiers
     this.currentRoute = null;
-    this.interval = null;
+	this.availableTags = [];
+	this.availableArtifacts = [];
+	this.data = null;
 
     //Start
     this.init();
@@ -52,7 +54,13 @@
         //hash oli olemas
         this.routeChange();
       }
+	  this.bindEvents();
     },
+	bindEvents: function(){
+		document.querySelector('#tagFilter').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
+		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
+		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
+	},
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
       if(this.routes[this.currentRoute]){
@@ -73,7 +81,7 @@
     },
 	//eventtab functions start
 	createTable: function(){
-		console.log("creating table");
+		//console.log("creating table");
 		//AJAX
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
@@ -82,7 +90,10 @@
 				//console.log(JSON.parse(xhttp.responseText));
 				var data = JSON.parse(xhttp.responseText);
 				var table = document.getElementById('EventTable');
-				for(var i=0; i<data.length; i++){
+				var actors = [];
+				var actions = [];
+				var add = true;
+				for(var i=0; i<10/*data.length*/; i++){
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time;
@@ -97,16 +108,114 @@
 					col = row.insertCell(5);
 					col.innerHTML = data[i].context;
 					table.appendChild(row);
+					for(var j=0; j<actors.length+1; j++){
+						if(actors[j] === data[i].user){add = false;}
+					}
+					if(add !== false){
+						actors.push(data[i].user);
+					}
+					add = true;
+					for(var j=0; j<actions.length+1; j++){
+						if(actions[j] === data[i].action){add = false;}
+					}
+					if(add !== false){
+						actions.push(data[i].action);
+					}
+					add = true;
+					for(var j=0; j<App.instance.availableTags.length+1; j++){
+						if(App.instance.availableTags[j] === data[i].context){add = false;}
+					}
+					if(add !== false && data[i].context !== ""){
+						App.instance.availableTags.push(data[i].context);
+					}
+					add = true;
+					for(var j=0; j<App.instance.availableArtifacts.length+1; j++){
+						if(App.instance.availableArtifacts[j] === data[i].document){add = false;}
+					}
+					if(add !== false && data[i].document !== ""){
+						App.instance.availableArtifacts.push(data[i].document);
+					}
+					add = true;
 				}
+				//console.log(App.instance.availableTags);
+				//console.log(App.instance.availableArtifacts);
 				var p = document.getElementById('EventCount');
 				p.innerHTML = (data.length+' events are shown');
+				actors.sort();
+				actors.reverse();
+				actions.sort();
+				actions.reverse();
+				var select = document.getElementById('actorFilter');
+				for(var i=0; i<actors.length; i++){
+					var option = document.createElement('option');
+					option.value = actors[i];
+					option.text = actors[i];
+					select.add(option, 1);
+				}
+				var select = document.getElementById('actionFilter');
+				for(var i=0; i<actions.length; i++){
+					var option = document.createElement('option');
+					option.value = actions[i];
+					option.text = actions[i];
+					select.add(option, 1);
+				}
 			}
 		};
 		xhttp.open("GET", "php/GetInfo.php?table", true);
 		xhttp.send();
-		
-		
-	}
+	},
+	FilterEvents: function(event){
+		var actor = document.getElementById('actorFilter');
+		var action = document.getElementById('actionFilter');
+		var tag = document.getElementById('tagFilter');
+		var artifact = document.getElementById('artifactFilter');
+		var table = document.getElementById('EventTable');
+		if(actor.value === "" && action.value === "" && tag.value === "" && artifact.value === ""){
+			for(var i=0; i<table.rows.length; i++){
+				table.rows[i].style.display = '';
+			}
+		}else{
+			console.log(table.rows[0]);
+			console.log(table.rows[0].cells[1]);
+			console.log(table.rows[0].cells[1].innerHTML);
+			for(var i=0; i<table.rows.length; i++){
+				//1
+				if(actor.value !== "" && actor.value === table.rows[i].cells[2].innerHTML){
+					table.rows[i].style.display = '';
+				}else if(actor.value !== "" && actor.value !== table.rows[i].cells[2].innerHTML){
+					table.rows[i].style.display = 'none';
+				}
+				//2
+				if(action.value !== "" && action.value === table.rows[i].cells[3].innerHTML){
+					table.rows[i].style.display = '';
+				}else if(action.value !== "" && action.value !== table.rows[i].cells[3].innerHTML){
+					table.rows[i].style.display = 'none';
+				}
+				//3
+				if(tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML){
+					table.rows[i].style.display = '';
+				}else if(tag.value !== "" && tag.value !== table.rows[i].cells[5].innerHTML){
+					table.rows[i].style.display = 'none';
+				}
+				//4
+				if(artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML){
+					table.rows[i].style.display = '';
+				}else if(artifact.value !== "" && artifact.value !== table.rows[i].cells[4].innerHTML){
+					table.rows[i].style.display = 'none';
+				}
+			}
+		}
+	},
+	tagFilterAutoComplete: function(event){
+		$("#tagFilter").autocomplete({
+			source: this.availableTags
+		});
+	},
+	artifactFilterAutoComplete: function(event){
+		$("#artifactFilter").autocomplete({
+			source: this.availableArtifacts
+		});
+	},
 	//eventtab functions end
 	//actortab functions start
 	

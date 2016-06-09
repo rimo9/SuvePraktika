@@ -8,7 +8,10 @@
 	<!--<link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
 	<link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />-->
 	<link type="text/css" href="./css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<!-- JS files-->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="js/main.js"></script>
 </head>
 <body>
@@ -26,34 +29,29 @@
 	<!-- eventtab start -->
     <div id="eventtab">
 
-      <div>
+		<div>
 		<p id="EventCount" align="center">List of events</p>
 		<table id="EventTable" style="width:100%"></table>
-	  </div>
+		</div>
 	  
-      <div class="ui-widget">
-        <form id="eventSelectionForm">
-          <select width="220"  style="width: 220px;" id="selectUser">
-            <option value="">Choose an actor to filter events</option>
-          </select>
-          <br><br><br>
-          <select width="220"  style="width: 220px;" id="selectAction">
-            <option value="">Choose an action to filter events</option>
-          </select>
-          <br><br>
-          <div class="ui-widget">
-            <label for="tagFilter">Choose a tag to filter events: </label><br>
-            <input width="220"  style="width: 220px;" id="tagFilterv">
-          </div>
-            <br>
-            <div class="ui-widget">
-              <label for="tagFilter">Choose an artifact to filter events: </label><br>
-              <input width="220"  style="width: 220px;" id="artifactFilterv">
-            </div>
-              <br><br><br>
-        </form>
-          <button type="button" name="Submit" value="Filter" onclick="printEventList()">Filter Events</button>
+		<div>
+			<form id="eventFiltering">
+				<select id="actorFilter">
+					<option value="">Choose an actor to filter events</option>
+				</select>
+				<br>
+				<select id="actionFilter">
+					<option value="">Choose an action to filter events</option>
+				</select>
+				<br>
+				<label for="tagFilter">Choose a tag to filter events:</label><br>
+				<input id="tagFilter"><br>
+				<label for="artifactFilter">Choose an artifact to filter events:</label><br>
+				<input type="text" id="artifactFilter"><br>
+				<button type="button" id="FilterSubmit">Submit</button>
+			</form>
         </div>
+		
       </div>
 	  <!-- eventtab end -->
 
