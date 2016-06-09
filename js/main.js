@@ -93,7 +93,7 @@
 				var actors = [];
 				var actions = [];
 				var add = true;
-				for(var i=0; i<10/*data.length*/; i++){
+				for(var i=0; i<data.length; i++){
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time;
