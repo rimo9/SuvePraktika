@@ -1,15 +1,11 @@
 <?php
 class User{
-	//privaatne muutuja
 	private $connection;
-	//käivitub kui tuleb new User();
 	function __construct($mysqli){
-		//selle klassi muutuja
 		$this->connection = $mysqli;
 	}
-	function getTable(){
-		//ALUSEKS
-		//START
+	//Gets all data from database
+	function getData(){
 		$array = '[';
 		
 		
@@ -23,6 +19,5 @@ class User{
 		$array = substr($array,0, -1);
 		$array.=']';
 		return $array;
-		//END
 	}
 }?>

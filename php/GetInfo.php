@@ -3,7 +3,7 @@
 	
 	//GET Table
 	if(isset($_GET["table"])){
-		$table_from_db = $User->getTable();
-		echo $table_from_db;
+		$data_from_db = $User->getData();
+		echo $data_from_db;
 	}
 ?>

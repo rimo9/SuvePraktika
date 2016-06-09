@@ -68,13 +68,51 @@
 	updateMenu: function(){
       //if active-menu then remove
       document.querySelector('.active-menu').className=document.querySelector('.active-menu').className.replace(' active-menu', '');
-      //add active-menu
+      //add active-menu to selected
       document.querySelector('.'+this.currentRoute).className+=' active-menu';
     },
+	//eventtab functions start
 	createTable: function(){
 		console.log("creating table");
+		//AJAX
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			//console.log(xhttp.readyState);
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				//console.log(JSON.parse(xhttp.responseText));
+				var data = JSON.parse(xhttp.responseText);
+				var table = document.getElementById('EventTable');
+				for(var i=0; i<data.length; i++){
+					var row = table.insertRow(i);
+					var col = row.insertCell(0);
+					col.innerHTML = data[i].time;
+					col = row.insertCell(1);
+					col.innerHTML = data[i].uptake;
+					col = row.insertCell(2);
+					col.innerHTML = data[i].user;
+					col = row.insertCell(3);
+					col.innerHTML = data[i].action;
+					col = row.insertCell(4);
+					col.innerHTML = data[i].document;
+					col = row.insertCell(5);
+					col.innerHTML = data[i].context;
+					table.appendChild(row);
+				}
+				console.log(table);
+			}
+		};
+		xhttp.open("GET", "php/GetInfo.php?table", true);
+		xhttp.send();
+		
 		
 	}
+	//eventtab functions end
+	//actortab functions start
+	
+	//actortab functions end
+	//contexttab functions start
+	
+	//contexttab functions end
 	
   };
 
