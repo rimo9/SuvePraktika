@@ -60,6 +60,7 @@
 		document.querySelector('#tagFilter').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
+		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
 	},
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
@@ -93,12 +94,22 @@
 				var actors = [];
 				var actions = [];
 				var add = true;
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<15/*data.length*/; i++){
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time;
+					
 					col = row.insertCell(1);
-					col.innerHTML = data[i].uptake;
+					if(data[i].uptake === "Yes"){
+						col.innerHTML = 'U';
+						col.id = ('dialog'+i);
+						var div = document.createElement("div")
+						div.title = "Uptake information";
+						div.id = "dialogBox"+data[i].id;
+						div.innerHTML = ("test"+i);
+						div.style.display = "none";
+						col.appendChild(div);
+					}
 					col = row.insertCell(2);
 					col.innerHTML = data[i].user;
 					col = row.insertCell(3);
@@ -172,7 +183,6 @@
 		var table = document.getElementById('EventTable');
 		var rowCount = table.rows.length;
 		var p = document.getElementById('EventCount');
-		//p.innerHTML = (table.rows.length+' events are shown');
 		if(actor.value === "" && action.value === "" && tag.value === "" && artifact.value === ""){
 			for(var i=0; i<table.rows.length; i++){
 				table.rows[i].style.display = '';
@@ -183,31 +193,9 @@
 			console.log(table.rows[0].cells[1]);
 			console.log(table.rows[0].cells[1].innerHTML);
 			for(var i=0; i<table.rows.length; i++){
-				//1
-				if(actor.value !== "" && actor.value === table.rows[i].cells[2].innerHTML){
+				if((actor.value !== "" && actor.value === table.rows[i].cells[2].innerHTML) || (action.value !== "" && action.value === table.rows[i].cells[3].innerHTML) || (tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML) || (artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML)){
 					table.rows[i].style.display = '';
-				}else if(actor.value !== "" && actor.value !== table.rows[i].cells[2].innerHTML){
-					table.rows[i].style.display = 'none';
-					rowCount--;
-				}
-				//2
-				if(action.value !== "" && action.value === table.rows[i].cells[3].innerHTML){
-					table.rows[i].style.display = '';
-				}else if(action.value !== "" && action.value !== table.rows[i].cells[3].innerHTML){
-					table.rows[i].style.display = 'none';
-					rowCount--;
-				}
-				//3
-				if(tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML){
-					table.rows[i].style.display = '';
-				}else if(tag.value !== "" && tag.value !== table.rows[i].cells[5].innerHTML){
-					table.rows[i].style.display = 'none';
-					rowCount--;
-				}
-				//4
-				if(artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML){
-					table.rows[i].style.display = '';
-				}else if(artifact.value !== "" && artifact.value !== table.rows[i].cells[4].innerHTML){
+				}else{
 					table.rows[i].style.display = 'none';
 					rowCount--;
 				}
@@ -224,6 +212,13 @@
 		$("#artifactFilter").autocomplete({
 			source: this.availableArtifacts
 		});
+	},
+	ShowDialog: function(event){
+		if(event.target.id.startsWith("dialog")){
+			console.log(event.target.id);
+			console.log(parseInt(event.target.id.substring(6))+1);
+			$( "#dialogBox"+(parseInt(event.target.id.substring(6))+1) ).dialog();
+		}
 	},
 	//eventtab functions end
 	//actortab functions start
