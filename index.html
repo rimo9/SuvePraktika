@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<title>Dashboard</title>
 	<!-- CSS files -->
-	<link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
-	<link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+	<!--<link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
+	<link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />-->
 	<link type="text/css" href="./css/style.css" rel="stylesheet" />
 	<!-- JS files-->
 	<script src="js/main.js"></script>
@@ -27,18 +27,9 @@
     <div id="eventtab">
 
       <div>
-		<table id="EventTable">
-			<tr>
-				<td>time</td>
-				<td>uptake</td>
-				<td>user</td>
-				<td>action</td>
-				<td>document</td>
-				<td>context</td>
-			</tr>
-		</table>
+		<p id="EventCount" align="center">List of events</p>
+		<table id="EventTable" style="width:100%"></table>
 	  </div>
-	  <br>
 	  
       <div class="ui-widget">
         <form id="eventSelectionForm">

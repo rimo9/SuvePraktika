@@ -98,7 +98,8 @@
 					col.innerHTML = data[i].context;
 					table.appendChild(row);
 				}
-				console.log(table);
+				var p = document.getElementById('EventCount');
+				p.innerHTML = (data.length+' events are shown');
 			}
 		};
 		xhttp.open("GET", "php/GetInfo.php?table", true);
