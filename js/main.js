@@ -93,7 +93,7 @@
 				var actors = [];
 				var actions = [];
 				var add = true;
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<10/*data.length*/; i++){
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time;
@@ -140,7 +140,7 @@
 				//console.log(App.instance.availableTags);
 				//console.log(App.instance.availableArtifacts);
 				var p = document.getElementById('EventCount');
-				p.innerHTML = (data.length+' events are shown');
+				p.innerHTML = (table.rows.length+' events are shown');
 				actors.sort();
 				actors.reverse();
 				actions.sort();
@@ -170,9 +170,13 @@
 		var tag = document.getElementById('tagFilter');
 		var artifact = document.getElementById('artifactFilter');
 		var table = document.getElementById('EventTable');
+		var rowCount = table.rows.length;
+		var p = document.getElementById('EventCount');
+		//p.innerHTML = (table.rows.length+' events are shown');
 		if(actor.value === "" && action.value === "" && tag.value === "" && artifact.value === ""){
 			for(var i=0; i<table.rows.length; i++){
 				table.rows[i].style.display = '';
+				p.innerHTML = (table.rows.length+' events are shown');
 			}
 		}else{
 			console.log(table.rows[0]);
@@ -184,26 +188,31 @@
 					table.rows[i].style.display = '';
 				}else if(actor.value !== "" && actor.value !== table.rows[i].cells[2].innerHTML){
 					table.rows[i].style.display = 'none';
+					rowCount--;
 				}
 				//2
 				if(action.value !== "" && action.value === table.rows[i].cells[3].innerHTML){
 					table.rows[i].style.display = '';
 				}else if(action.value !== "" && action.value !== table.rows[i].cells[3].innerHTML){
 					table.rows[i].style.display = 'none';
+					rowCount--;
 				}
 				//3
 				if(tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML){
 					table.rows[i].style.display = '';
 				}else if(tag.value !== "" && tag.value !== table.rows[i].cells[5].innerHTML){
 					table.rows[i].style.display = 'none';
+					rowCount--;
 				}
 				//4
 				if(artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML){
 					table.rows[i].style.display = '';
 				}else if(artifact.value !== "" && artifact.value !== table.rows[i].cells[4].innerHTML){
 					table.rows[i].style.display = 'none';
+					rowCount--;
 				}
 			}
+			p.innerHTML = (rowCount+' events are shown');
 		}
 	},
 	tagFilterAutoComplete: function(event){
