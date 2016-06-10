@@ -91,6 +91,7 @@
 				//console.log(JSON.parse(xhttp.responseText));
 				var data = JSON.parse(xhttp.responseText);				
 				var table = document.getElementById('EventTable');
+				table.innerHTML = '';
 				var actors = [];
 				var actions = [];
 				var add = true;
