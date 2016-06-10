@@ -169,6 +169,7 @@ a:hover {
 /* Page */
 
 #eventtab {
+	display: flex;
 	overflow: hidden;
 	width: 1400px;
 	margin: 0px auto;
@@ -253,6 +254,12 @@ a:hover {
     background-color: white;
     color: black;
 }
-
-
-
+table, tr, td{
+	font-size: 12px;
+	text-align: center;
+	border: 2px solid #FFFFFF;
+}
+td{
+	padding-left: 5px;
+	padding-right: 5px;
+}

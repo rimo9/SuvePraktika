@@ -35,8 +35,9 @@
 	<main role="main">	
 	<!-- eventtab start -->
     <div id="eventtab" class="post">
-		<div>
-			<form id="eventFiltering">
+	
+		<div style="color:#000000">
+			<form id="eventFiltering" >
 				<select id="actorFilter">
 					<option value="">Choose an actor to filter events</option>
 				</select>
@@ -45,15 +46,15 @@
 					<option value="">Choose an action to filter events</option>
 				</select>
 				<br>
-				<label for="tagFilter">Choose a tag to filter events:</label><br>
+				<label for="tagFilter" style="color:#FFFFFF">Choose a tag to filter events:</label><br>
 				<input id="tagFilter"><br>
-				<label for="artifactFilter">Choose an artifact to filter events:</label><br>
+				<label for="artifactFilter" style="color:#FFFFFF">Choose an artifact to filter events:</label><br>
 				<input type="text" id="artifactFilter"><br>
-				<button type="button" id="FilterSubmit">Submit</button>
+				<button type="button" id="FilterSubmit">Filter events</button>
 			</form>
         </div>
 
-		<div>
+		<div id="DataTable">
 		<p id="EventCount" align="center">List of events</p>
 		<table id="EventTable" style="width:100%"></table>
 		</div>
@@ -148,4 +149,6 @@
     </div>
 </main>
 </body>
+<footer>
+</footer>
 </html>
