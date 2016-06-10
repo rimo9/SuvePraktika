@@ -7,8 +7,7 @@
 	<title>A Data Visualization Dashboard</title>
 	<!-- CSS files -->
 	<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
-	<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-	<link type="text/css" href="./css/style.css" rel="stylesheet" />
+	<link type="text/css" href="css/style.css" rel="stylesheet" media="screen"/>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<!-- JS files-->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -16,7 +15,7 @@
 	<script src="js/main.js"></script>
 </head>
 <body>
-  <div id="wrapper">
+  <div>
     <!-- menu start -->
 	<nav class="menu" id="menu">
 		<ul class="menu-list">
@@ -35,14 +34,8 @@
 	<!-- header end -->
 	<main role="main">	
 	<!-- eventtab start -->
-    <div id="eventtab" ">
-
+    <div id="eventtab" class="post">
 		<div>
-		<p id="EventCount" align="center">List of events</p>
-		<table id="EventTable" style="width:100%"></table>
-		</div>
-	  
-		<div class="post">
 			<form id="eventFiltering">
 				<select id="actorFilter">
 					<option value="">Choose an actor to filter events</option>
@@ -59,6 +52,13 @@
 				<button type="button" id="FilterSubmit">Submit</button>
 			</form>
         </div>
+
+		<div>
+		<p id="EventCount" align="center">List of events</p>
+		<table id="EventTable" style="width:100%"></table>
+		</div>
+	  
+		
 		
       </div>
 	  <!-- eventtab end -->

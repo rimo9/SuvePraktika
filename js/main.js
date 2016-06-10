@@ -99,7 +99,7 @@
 					//console.log(data[i]);
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
-					col.innerHTML = data[i].time;
+					col.innerHTML = data[i].time.substring(0, 10);
 					
 					col = row.insertCell(1);
 					for(var j=0; j<i; j++){
@@ -202,9 +202,9 @@
 				p.innerHTML = (table.rows.length+' events are shown');
 			}
 		}else{
-			console.log(table.rows[0]);
-			console.log(table.rows[0].cells[1]);
-			console.log(table.rows[0].cells[1].innerHTML);
+			//console.log(table.rows[0]);
+			//console.log(table.rows[0].cells[1]);
+			//console.log(table.rows[0].cells[1].innerHTML);
 			for(var i=0; i<table.rows.length; i++){
 				if((actor.value !== "" && actor.value === table.rows[i].cells[2].innerHTML) || (action.value !== "" && action.value === table.rows[i].cells[3].innerHTML) || (tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML) || (artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML)){
 					table.rows[i].style.display = '';
@@ -228,8 +228,8 @@
 	},
 	ShowDialog: function(event){
 		if(event.target.id.startsWith("dialog")){
-			console.log(event.target.id);
-			console.log(parseInt(event.target.id.substring(6)));
+			//console.log(event.target.id);
+			//console.log(parseInt(event.target.id.substring(6)));
 			$( "#dialogBox"+(parseInt(event.target.id.substring(6))) ).dialog();
 		}
 	},
