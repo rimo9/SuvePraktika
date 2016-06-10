@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-	<meta charset="UTF-8">
-	<title>Dashboard</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>A Data Visualization Dashboard</title>
 	<!-- CSS files -->
-	<!--<link type="text/css" href="./css/dashboardBase.css" rel="stylesheet" />
-	<link type="text/css" href="./css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />-->
+	<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 	<link type="text/css" href="./css/style.css" rel="stylesheet" />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<!-- JS files-->
@@ -15,9 +16,9 @@
 	<script src="js/main.js"></script>
 </head>
 <body>
-  <div id="graph-tabs">
+  <div id="wrapper">
     <!-- menu start -->
-	<nav class="menu">
+	<nav class="menu" id="menu">
 		<ul class="menu-list">
 			<li class="menu-item"><a href="#eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
 			<li class="menu-item"><a href="#actortab" class="menu-link actortab">Social Network</a></li>
@@ -25,16 +26,23 @@
 		</ul>
 	</nav>
 	<!-- menu end -->
+	<!-- header start -->
+	<div id="header">
+		<div id="logo">
+			<h1>A Data Visualization Dashboard</h1>
+		</div>
+	</div>
+	<!-- header end -->
 	<main role="main">	
 	<!-- eventtab start -->
-    <div id="eventtab">
+    <div id="eventtab" ">
 
 		<div>
 		<p id="EventCount" align="center">List of events</p>
 		<table id="EventTable" style="width:100%"></table>
 		</div>
 	  
-		<div>
+		<div class="post">
 			<form id="eventFiltering">
 				<select id="actorFilter">
 					<option value="">Choose an actor to filter events</option>

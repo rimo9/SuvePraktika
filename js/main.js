@@ -89,26 +89,38 @@
 			//console.log(xhttp.readyState);
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				//console.log(JSON.parse(xhttp.responseText));
-				var data = JSON.parse(xhttp.responseText);
+				var data = JSON.parse(xhttp.responseText);				
 				var table = document.getElementById('EventTable');
 				var actors = [];
 				var actions = [];
 				var add = true;
-				for(var i=0; i<15/*data.length*/; i++){
+				for(var i=0; i<data.length; i++){
+					//console.log(data[i]);
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time;
 					
 					col = row.insertCell(1);
-					if(data[i].uptake === "Yes"){
-						col.innerHTML = 'U';
-						col.id = ('dialog'+i);
-						var div = document.createElement("div")
-						div.title = "Uptake information";
-						div.id = "dialogBox"+data[i].id;
-						div.innerHTML = ("test"+i);
-						div.style.display = "none";
-						col.appendChild(div);
+					for(var j=0; j<i; j++){
+						if(data[i].context !== "" && data[j].context === data[i].context && data[j].user !== data[i].user){
+							col.innerHTML = 'U';
+							col.id = ('dialog'+i);
+							var div = document.createElement("div");
+							div.title = "Uptake information";
+							div.id = "dialogBox"+i;
+							div.innerHTML = "The tag "+data[i].context+" was introduced by "+data[j].user;
+							div.style.display = "none";
+							col.appendChild(div);
+						} else if(data[i].document !== "" && data[i].context === "" && data[j].document === data[i].document && data[j].user !== data[i].user){
+							col.innerHTML = 'U';
+							col.id = ('dialog'+i);
+							var div = document.createElement("div");
+							div.title = "Uptake information";
+							div.id = "dialogBox"+i;
+							div.innerHTML = "The document "+data[i].document+" was introduced by "+data[j].user;
+							div.style.display = "none";
+							col.appendChild(div);
+						}
 					}
 					col = row.insertCell(2);
 					col.innerHTML = data[i].user;
@@ -216,8 +228,8 @@
 	ShowDialog: function(event){
 		if(event.target.id.startsWith("dialog")){
 			console.log(event.target.id);
-			console.log(parseInt(event.target.id.substring(6))+1);
-			$( "#dialogBox"+(parseInt(event.target.id.substring(6))+1) ).dialog();
+			console.log(parseInt(event.target.id.substring(6)));
+			$( "#dialogBox"+(parseInt(event.target.id.substring(6))) ).dialog();
 		}
 	},
 	//eventtab functions end
