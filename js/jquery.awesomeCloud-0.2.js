@@ -487,9 +487,11 @@ Extra Thanks:
 			canvasDOM.addEventListener("click", function (ev) {
 				if ($this.match !== null) {
 					if ($this.match.target) {
-						window.open($this.match.link, $this.match.target);
+						//window.open($this.match.link, $this.match.target);
 					} else {
-						window.location = $this.match.link;
+						//window.location = $this.match.link;
+						//console.log($this.match);
+						App.instance.tagCloudListener($this.match.word);
 					}
 				}
 			}, false);

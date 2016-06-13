@@ -30,7 +30,6 @@
     "eventtab" : {
 		render: function(){
 			console.log('Under eventtab');
-			App.instance.createTable();
 		}
     },
     "actortab" : {
@@ -58,6 +57,7 @@
         //hash oli olemas
         this.routeChange();
       }
+	  this.createTable();
 	  this.createCloud();
 	  this.bindEvents();
     },
@@ -66,7 +66,7 @@
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
 		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
-		document.querySelector('#wordcloud').addEventListener('click', this.tagCloudListener.bind(this));
+		//document.querySelector('#wordcloud').addEventListener('click', this.tagCloudListener.bind(this));
 	},
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
@@ -276,14 +276,17 @@
 					}
 				}
 				var div = document.getElementById('wordcloud');
-				console.log(App.instance.words[10].word);
+				//console.log(App.instance.words[10].word);
 				for(var i=0; i<App.instance.words.length; i++){
 					var span = document.createElement('span');
 					span.id = App.instance.words[i].word;
-					span.innerHTML = App.instance.words[i].word;
 					span.setAttribute('data-weight', App.instance.words[i].weight);
-					//span.data-weight = App.instance.words[i].weight;
+					var a = document.createElement('a');
+					a.setAttribute("data-word", App.instance.words[i].word);
+					a.innerHTML = App.instance.words[i].word;
+					span.appendChild(a);
 					div.appendChild(span);
+					
 				}
 				
 				$("#wordcloud").awesomeCloud({
@@ -303,8 +306,67 @@
 		  xhttp.open("GET", "php/GetInfo.php?table", true);
 		  xhttp.send();
 	},
-	tagCloudListener: function(event){
-		console.log(event.currentTarget);
+	tagCloudListener: function(word){
+		var weight = 0;
+		for(var i=0; i<this.words.length; i++){
+			if(word === this.words[i].word){
+				weight = this.words[i].weight;
+			}
+		}
+		var NrOfTagDocuments = document.getElementById('TagCloudNrOfTagDocuments');
+		var list = document.getElementById('TagsTagCloudContent');
+		list.innerHTML = '';
+		//console.log(list);
+		var count = 1;
+		for(var i=0; i<this.data.length; i++){
+			if(this.data[i].context === word && this.data[i].document !== ''){
+				console.log(this.data[i].document);
+				var tr = document.createElement('tr');
+				var th = document.createElement('th');
+				th.innerHTML = count;
+				tr.appendChild(th);
+				var th = document.createElement('th');
+				th.innerHTML = this.data[i].document;
+				tr.appendChild(th);
+				list.appendChild(tr);
+				count++;
+			}
+		}
+		console.log(count);
+		NrOfTagDocuments.innerHTML="There are "+(count-1)+" documents related to the tag "+word;
+		
+		var NrOfEventDocuments = document.getElementById('TagCloudNrOfEventDocuments');
+		var list = document.getElementById('EventsTagCloudContent');
+		list.innerHTML = '';
+		var liOfUsers = [];
+		var abi = [];
+		for(var i=0; i<this.data.length; i++){
+			if(this.data[i].context === word){
+				liOfUsers.push(this.data[i].user);
+			}
+		}
+		var olemas = false;
+		for(var i=0; i<liOfUsers.length; i++){
+			for(var j=0; j<liOfUsers.length; j++){
+				if(liOfUsers[i] === abi[j]){olemas = true;}
+			}
+			if(!olemas){
+				abi.push(liOfUsers[i]);
+			}
+			olemas = false;
+		}
+		console.log(abi);
+		NrOfEventDocuments.innerHTML=abi.length+" users employed the tag "+word;
+		for(var i=0; i<abi.length; i++){
+			var tr = document.createElement('tr');
+			var th = document.createElement('th');
+			th.innerHTML = i+1;
+			tr.appendChild(th);
+			var th = document.createElement('th');
+			th.innerHTML = abi[i];
+			tr.appendChild(th);
+			list.appendChild(tr);
+		}
 	}
 	//contexttab functions end
 	

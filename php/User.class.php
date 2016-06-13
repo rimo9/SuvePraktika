@@ -7,7 +7,8 @@ class User{
 	//Gets all data from database
 	function getData(){
 		$array = '[';
-		
+			
+		mysqli_set_charset($this->connection,"utf8");
 		
 		$stmt = $this->connection->prepare("SELECT id,user, action, document, context, time, uptake FROM DVS");
 		$stmt->bind_result( $id,$user,$action,$document,$context,$time,$uptake);

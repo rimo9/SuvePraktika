@@ -121,8 +121,31 @@
 
 	<!-- contexttab start -->
     <div id="contexttab">
-
-          <div id="wordcloud" class="wordcloud"><span id="quisqu" data-weight="40">hello</span><span data-weight="100">temp</span></div>
+		  
+		  <div id="artifactsTagCloud">
+			<table id="TagsTagCloudTable">
+				<thead>
+					<tr>
+						<th id="TagCloudNrOfTagDocuments">Click on a tag to see the events related</th>
+					</tr>
+				</thead>
+				<tbody id="TagsTagCloudContent"></tbody>
+			</table>
+		  </div>
+		  <br><br>
+		  
+		  <div id="eventsTagCloud">
+			<table id="eventsTagCloud">
+				<thead>
+					<tr>
+						<th id="TagCloudNrOfEventDocuments">Click on a tag to see the events related</th>
+					</tr>
+				</thead>
+				<tbody id="EventsTagCloudContent"></tbody>
+			</table>
+		  </div>
+		  
+		  <div id="wordcloud" class="wordcloud"></div>
 
     </div>
 	<!-- contexttab end -->
