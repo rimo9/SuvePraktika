@@ -92,6 +92,7 @@
 				var data = JSON.parse(xhttp.responseText);				
 				var table = document.getElementById('EventTable');
 				table.innerHTML = '';
+				
 				var actors = [];
 				var actions = [];
 				var add = true;
@@ -172,18 +173,22 @@
 				actions.sort();
 				actions.reverse();
 				var select = document.getElementById('actorFilter');
-				for(var i=0; i<actors.length; i++){
-					var option = document.createElement('option');
-					option.value = actors[i];
-					option.text = actors[i];
-					select.add(option, 1);
+				if(select.options.length === 1){
+					for(var i=0; i<actors.length; i++){
+						var option = document.createElement('option');
+						option.value = actors[i];
+						option.text = actors[i];
+						select.add(option, 1);
+					}
 				}
 				var select = document.getElementById('actionFilter');
-				for(var i=0; i<actions.length; i++){
-					var option = document.createElement('option');
-					option.value = actions[i];
-					option.text = actions[i];
-					select.add(option, 1);
+				if(select.options.length === 1){
+					for(var i=0; i<actions.length; i++){
+						var option = document.createElement('option');
+						option.value = actions[i];
+						option.text = actions[i];
+						select.add(option, 1);
+					}
 				}
 			}
 		};
