@@ -16,10 +16,14 @@
 	this.availableTags = [];
 	this.availableArtifacts = [];
 	this.data = null;
+	
+	this.words =  [];
 
     //Start
     this.init();
   };
+  
+  window.App = App;
 
   //All pages
   App.routes = {
@@ -54,6 +58,7 @@
         //hash oli olemas
         this.routeChange();
       }
+	  this.createCloud();
 	  this.bindEvents();
     },
 	bindEvents: function(){
@@ -61,6 +66,7 @@
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
 		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
+		document.querySelector('#wordcloud').addEventListener('click', this.tagCloudListener.bind(this));
 	},
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
@@ -89,6 +95,7 @@
 			//console.log(xhttp.readyState);
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				//console.log(JSON.parse(xhttp.responseText));
+				App.instance.data = JSON.parse(xhttp.responseText);
 				var data = JSON.parse(xhttp.responseText);				
 				var table = document.getElementById('EventTable');
 				table.innerHTML = '';
@@ -245,10 +252,82 @@
 	
 	//actortab functions end
 	//contexttab functions start
-	
+	createCloud: function(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			var words = [];
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var data = JSON.parse(xhttp.responseText);
+				for(var i=0; i<data.length; i++){
+					if(data[i].context !== ''){
+						
+						var new_word = new Word(data[i].context);
+						
+						var exist = false;
+						
+						//console.log(App.instance.words.length);
+						
+						exist = checkIfExists(new_word);
+						
+						if(!exist){
+							App.instance.words.push(new_word);
+						}
+						
+					}
+				}
+				var div = document.getElementById('wordcloud');
+				console.log(App.instance.words[10].word);
+				for(var i=0; i<App.instance.words.length; i++){
+					var span = document.createElement('span');
+					span.id = App.instance.words[i].word;
+					span.innerHTML = App.instance.words[i].word;
+					span.setAttribute('data-weight', App.instance.words[i].weight);
+					//span.data-weight = App.instance.words[i].weight;
+					div.appendChild(span);
+				}
+				
+				$("#wordcloud").awesomeCloud({
+					"size" : {
+						"grid" : 9,
+						"factor" : 1
+					},
+					"options" : {
+						"color" : "random-dark",
+						"rotationRatio" : 0.35
+					},
+					"font" : "'Times New Roman', Times, serif",
+					"shape" : "circle"
+				});
+			}
+		};
+		  xhttp.open("GET", "php/GetInfo.php?table", true);
+		  xhttp.send();
+	},
+	tagCloudListener: function(event){
+		console.log(event.currentTarget);
+	}
 	//contexttab functions end
 	
   };
+  
+  var Word = function(word){
+	  this.word = word;
+	  this.weight = 10;
+  };
+  
+  
+ function checkIfExists(new_word){
+		  for (var i = 0; i < App.instance.words.length; i++) {
+			if (App.instance.words[i].word == new_word.word) {
+				
+				App.instance.words[i].weight+=10;
+
+				return true;
+			}
+		}
+
+		return false;
+}
 
   window.onload = function(){
     var app = new App();
