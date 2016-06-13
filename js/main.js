@@ -111,6 +111,7 @@
 							div.id = "dialogBox"+i;
 							div.innerHTML = "The tag "+data[i].context+" was introduced by "+data[j].user;
 							div.style.display = "none";
+							col.style.cursor= "pointer";
 							col.appendChild(div);
 						} else if(data[i].document !== "" && data[i].context === "" && data[j].document === data[i].document && data[j].user !== data[i].user){
 							col.innerHTML = 'U';
@@ -120,6 +121,7 @@
 							div.id = "dialogBox"+i;
 							div.innerHTML = "The document "+data[i].document+" was introduced by "+data[j].user;
 							div.style.display = "none";
+							col.style.cursor= "pointer";
 							col.appendChild(div);
 						}
 					}
