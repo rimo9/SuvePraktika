@@ -66,7 +66,8 @@
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
 		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
-		//document.querySelector('#wordcloud').addEventListener('click', this.tagCloudListener.bind(this));
+		document.querySelector('#TagsTagCloudContent').addEventListener('click', this.tagCloudContentListener.bind(this));
+		document.querySelector('#EventsTagCloudContent').addEventListener('click', this.eventsCloudContentListener.bind(this));
 	},
 	routeChange: function(event){
       this.currentRoute = window.location.hash.slice(1);
@@ -320,19 +321,19 @@
 		var count = 1;
 		for(var i=0; i<this.data.length; i++){
 			if(this.data[i].context === word && this.data[i].document !== ''){
-				console.log(this.data[i].document);
 				var tr = document.createElement('tr');
+				tr.id = i;
 				var th = document.createElement('th');
 				th.innerHTML = count;
 				tr.appendChild(th);
 				var th = document.createElement('th');
 				th.innerHTML = this.data[i].document;
+				th.id = i;
 				tr.appendChild(th);
 				list.appendChild(tr);
 				count++;
 			}
 		}
-		console.log(count);
 		NrOfTagDocuments.innerHTML="There are "+(count-1)+" documents related to the tag "+word;
 		
 		var NrOfEventDocuments = document.getElementById('TagCloudNrOfEventDocuments');
@@ -355,17 +356,29 @@
 			}
 			olemas = false;
 		}
-		console.log(abi);
 		NrOfEventDocuments.innerHTML=abi.length+" users employed the tag "+word;
 		for(var i=0; i<abi.length; i++){
 			var tr = document.createElement('tr');
+			tr.id = i;
 			var th = document.createElement('th');
 			th.innerHTML = i+1;
 			tr.appendChild(th);
 			var th = document.createElement('th');
 			th.innerHTML = abi[i];
+			th.id = i;
 			tr.appendChild(th);
 			list.appendChild(tr);
+		}
+	},
+	eventsCloudContentListener: function(event){
+		if(event.target.id !== ""){
+			console.log(event.target.innerHTML);
+			event.target.textColor = color.red ;
+		}
+	},
+	tagCloudContentListener: function(event){
+		if(event.target.id !== ""){
+			console.log(event.target);
 		}
 	}
 	//contexttab functions end
