@@ -346,15 +346,15 @@
 				liOfUsers.push(this.data[i].user);
 			}
 		}
-		var olemas = false;
+		var isPresent = false;
 		for(var i=0; i<liOfUsers.length; i++){
 			for(var j=0; j<liOfUsers.length; j++){
-				if(liOfUsers[i] === abi[j]){olemas = true;}
+				if(liOfUsers[i] === abi[j]){isPresent = true;}
 			}
-			if(!olemas){
+			if(!isPresent){
 				abi.push(liOfUsers[i]);
 			}
-			olemas = false;
+			isPresent = false;
 		}
 		NrOfEventDocuments.innerHTML=abi.length+" users employed the tag "+word;
 		for(var i=0; i<abi.length; i++){
@@ -371,14 +371,20 @@
 		}
 	},
 	eventsCloudContentListener: function(event){
-		if(event.target.id !== ""){
-			console.log(event.target.innerHTML);
-			event.target.textColor = color.red ;
+		for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
+			if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].id === event.target.id){
+				event.target.parentNode.parentNode.rows[i].style.color = "red" ;
+			}else{
+				event.target.parentNode.parentNode.rows[i].style.color = "white" ;
+			}
 		}
+		var tags = document.getElementById('TagsTagCloudContent');
+		
 	},
 	tagCloudContentListener: function(event){
 		if(event.target.id !== ""){
 			console.log(event.target);
+			event.target.style.color = "red";
 		}
 	}
 	//contexttab functions end
