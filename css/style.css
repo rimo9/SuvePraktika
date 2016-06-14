@@ -4,18 +4,23 @@ body,
 html {
     width: 100%;
     height: 100%;
+	
+	
 }
 body {
     position: relative;
     margin-bottom: -100px;
+
+	
 }
 main {
     height: 100%;
     position: absolute;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: -82px;
+   
     width: 100%;
+	
+    
+
 }
 main > * {
     display: none;
@@ -34,10 +39,10 @@ main > *:target ~ * {
 body {
 	margin: 0;
 	padding: 0;
-	background: #003366;
+	background: #c5d5cb;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
-	color: #FFFFFF;
+	color: #000000;
 }
 
 h1, h2, h3 {
@@ -79,7 +84,7 @@ a:hover {
 
 
 #wrapper {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin: 0px auto;
 	background: url(images/wrapper-img.jpg) no-repeat center top;
 }
@@ -130,7 +135,7 @@ a:hover {
 #menu {
 	width: 820px;
 	height: 60px;
-	margin: 40px auto 0 auto;
+	margin: 30px auto 0 auto;
 	text-align: center;
 }
 
@@ -161,31 +166,6 @@ a:hover {
 	background: #87CEEB; 
 }
 
-#splash {
-	width: 1000px;
-	margin: 0px auto;
-}
-
-/* Page */
-
-#eventtab {
-	overflow: hidden;
-	width: 1600px;
-	margin: 0px auto;
-	padding: 0px 0px;
-}
-#actortab {
-	overflow: hidden;
-	width: 1600px;
-	margin: 0px auto;
-	padding: 0px 0px;
-}
-#contexttab {
-	overflow: hidden;
-	width: 1600px;
-	margin: 0px auto;
-	padding: 0px 0px;
-}
 
 /* Content */
 
@@ -198,8 +178,31 @@ a:hover {
 .post {
 	padding: 20px;
 	margin-bottom: 30px;
-	background: #000000; 
-	border: 4px solid black;
+	background: #fff; 
+	border-style: solid;
+	border-color: #9fa8a3;
+	overflow: hidden;
+	width: 1400px;
+	margin: 0px auto;
+	padding: 10px 10px;
+	max-height:1000px;
+   
+
+}
+.posti {
+	padding: 20px;
+	margin-bottom: 30px;
+	background: #fff; 
+	border-style: solid;
+	border-color: #9fa8a3;
+	overflow: hidden;
+	width: 1400px;
+	margin: 0px auto;
+	padding: 10px 10px;
+	overflow: scroll;
+	max-height:800px;
+   
+
 }
 
 .post .title {
@@ -245,10 +248,10 @@ a:hover {
 
 .menu-item {
     
-	background-color:#008CBA;
+	background-color:#9fa8a3;
     color: white; 
-    border: 2px solid #008CBA;
-    padding: 16px 32px;
+    border: 2px solid #e3e0cf;
+    padding: 14px 26px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -267,7 +270,8 @@ a:hover {
 table, tr, td{
 	font-size: 12px;
 	text-align: center;
-	border: 2px solid #FFFFFF;
+	border: 2px solid #9fa8a3;
+	background:#e3e0cf;
 }
 td{
 	padding-left: 5px;

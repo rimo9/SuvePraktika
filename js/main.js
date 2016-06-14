@@ -221,11 +221,11 @@
 			//console.log(table.rows[0].cells[1]);
 			//console.log(table.rows[0].cells[1].innerHTML);
 			for(var i=0; i<table.rows.length; i++){
-				if((actor.value !== "" && actor.value === table.rows[i].cells[2].innerHTML) || (action.value !== "" && action.value === table.rows[i].cells[3].innerHTML) || (tag.value !== "" && tag.value === table.rows[i].cells[5].innerHTML) || (artifact.value !== "" && artifact.value === table.rows[i].cells[4].innerHTML)){
-					table.rows[i].style.display = '';
-				}else{
+				if(( actor.value !== "" && actor.value !== table.rows[i].cells[2].innerHTML) || ( action.value !== "" && action.value !== table.rows[i].cells[3].innerHTML) || ( tag.value !== "" && tag.value !== table.rows[i].cells[5].innerHTML) || ( artifact.value !== "" && artifact.value !== table.rows[i].cells[4].innerHTML)){
 					table.rows[i].style.display = 'none';
 					rowCount--;
+				}else{
+					table.rows[i].style.display = '';
 				}
 			}
 			p.innerHTML = (rowCount+' events are shown');
@@ -371,36 +371,40 @@
 		}
 	},
 	eventsCloudContentListener: function(event){
-		for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
-			if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].id === event.target.id){
-				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
-			}else{
-				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "white" ;
+		if(event.target.id !== 'EventsTagCloudContentTagCloudContent' && event.target.id !== 'EventsTagCloudContent'){
+			for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
+				if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].id === event.target.id){
+					event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
+				}else{
+					event.target.parentNode.parentNode.rows[i].cells[1].style.color = "black" ;
+				}
 			}
-		}
-		var tags = document.getElementById('TagsTagCloudContent');
-		for(var i=0; i<tags.rows.length; i++){
-			if(tags.rows[i].cells[1].id === event.target.innerHTML){
-				tags.rows[i].cells[1].style.color = "red";
-			}else{
-				tags.rows[i].cells[1].style.color = "white";
+			var tags = document.getElementById('TagsTagCloudContent');
+			for(var i=0; i<tags.rows.length; i++){
+				if(tags.rows[i].cells[1].id === event.target.innerHTML){
+					tags.rows[i].cells[1].style.color = "red";
+				}else{
+					tags.rows[i].cells[1].style.color = "black";
+				}
 			}
 		}
 	},
 	tagCloudContentListener: function(event){
-		for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
-			if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].cells[1].innerHTML === event.target.innerHTML){
-				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
-			}else{
-				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "white" ;
+		if(event.target.id !== 'TagsTagCloudContent' && event.target.id !== 'TagsTagCloudContent'){
+			for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
+				if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].cells[1].innerHTML === event.target.innerHTML){
+					event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
+				}else{
+					event.target.parentNode.parentNode.rows[i].cells[1].style.color = "black" ;
+				}
 			}
-		}
-		var events = document.getElementById('EventsTagCloudContent');
-		for(var i=0; i<events.rows.length; i++){
-			if(events.rows[i].cells[1].innerHTML === event.target.id){
-				events.rows[i].cells[1].style.color = "red";
-			}else{
-				events.rows[i].cells[1].style.color = "white";
+			var events = document.getElementById('EventsTagCloudContent');
+			for(var i=0; i<events.rows.length; i++){
+				if(events.rows[i].cells[1].innerHTML === event.target.id){
+					events.rows[i].cells[1].style.color = "red";
+				}else{
+					events.rows[i].cells[1].style.color = "black";
+				}
 			}
 		}
 	}

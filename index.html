@@ -17,6 +17,7 @@
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>-->
 	<script src="js/jquery.awesomeCloud-0.2.js"></script>
 	<script src="js/main.js"></script>
+	<!--<script src="js/d3.v3.min.js"></script>-->
 </head>
 <body>
   <div>
@@ -31,14 +32,12 @@
 	<!-- menu end -->
 	<!-- header start -->
 	<div id="header">
-		<div id="logo">
-			<h1>A Data Visualization Dashboard</h1>
-		</div>
+		
 	</div>
 	<!-- header end -->
 	<main role="main">
 	<!-- eventtab start -->
-    <div id="eventtab" class="post" >
+    <div id="eventtab" class="posti">
 			<div style="color:#000000">
 				<form id="eventFiltering" >
 					<select id="actorFilter">
@@ -69,7 +68,7 @@
 
 
 	<!-- actortab start -->
-    <div id="actortab">
+    <div id="actortab"class="post">
 	
         <form id="snSelectionForm">
             <select width="220"  style="width: 320px;" id="selectEventType">
@@ -120,9 +119,9 @@
 
 
 	<!-- contexttab start -->
-    <div id="contexttab">
+    <div id="contexttab"class="post">
 		  
-		  <div id="artifactsTagCloud">
+		   <div id="artifactsTagCloud">
 			<table id="TagsTagCloudTable">
 				<thead>
 					<tr>
@@ -146,6 +145,7 @@
 		  </div>
 		  
 		  <div id="wordcloud" class="wordcloud"></div>
+
 
     </div>
 	<!-- contexttab end -->
