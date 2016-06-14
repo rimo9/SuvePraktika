@@ -328,7 +328,7 @@
 				tr.appendChild(th);
 				var th = document.createElement('th');
 				th.innerHTML = this.data[i].document;
-				th.id = i;
+				th.id = this.data[i].user;
 				tr.appendChild(th);
 				list.appendChild(tr);
 				count++;
@@ -373,18 +373,35 @@
 	eventsCloudContentListener: function(event){
 		for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
 			if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].id === event.target.id){
-				event.target.parentNode.parentNode.rows[i].style.color = "red" ;
+				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
 			}else{
-				event.target.parentNode.parentNode.rows[i].style.color = "white" ;
+				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "white" ;
 			}
 		}
 		var tags = document.getElementById('TagsTagCloudContent');
-		
+		for(var i=0; i<tags.rows.length; i++){
+			if(tags.rows[i].cells[1].id === event.target.innerHTML){
+				tags.rows[i].cells[1].style.color = "red";
+			}else{
+				tags.rows[i].cells[1].style.color = "white";
+			}
+		}
 	},
 	tagCloudContentListener: function(event){
-		if(event.target.id !== ""){
-			console.log(event.target);
-			event.target.style.color = "red";
+		for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
+			if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].cells[1].innerHTML === event.target.innerHTML){
+				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "red" ;
+			}else{
+				event.target.parentNode.parentNode.rows[i].cells[1].style.color = "white" ;
+			}
+		}
+		var events = document.getElementById('EventsTagCloudContent');
+		for(var i=0; i<events.rows.length; i++){
+			if(events.rows[i].cells[1].innerHTML === event.target.id){
+				events.rows[i].cells[1].style.color = "red";
+			}else{
+				events.rows[i].cells[1].style.color = "white";
+			}
 		}
 	}
 	//contexttab functions end
