@@ -13,10 +13,11 @@
 
     //All modifiers
     this.currentRoute = null;
+	
 	this.availableTags = [];
 	this.availableArtifacts = [];
-	this.data = null;
 	
+	this.data = null;
 	this.words =  [];
 
     //Start
@@ -57,14 +58,19 @@
         //hash oli olemas
         this.routeChange();
       }
-	  this.createTable();
+	  //this.createTable();
+	  this.ActorFilters();
+	  this.ActionFilters();
+	  this.TagFilters();
+	  this.ArtifactFilters();
+	  
 	  this.createCloud();
 	  this.bindEvents();
     },
 	bindEvents: function(){
 		document.querySelector('#tagFilterv').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
-		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
+		document.querySelector('#FilterSubmit').addEventListener('click', this.createTable.bind(this));
 		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
 		document.querySelector('#TagsTagCloudContent').addEventListener('click', this.tagCloudContentListener.bind(this));
 		document.querySelector('#EventsTagCloudContent').addEventListener('click', this.eventsCloudContentListener.bind(this));
@@ -88,28 +94,28 @@
       document.querySelector('.'+this.currentRoute).className+=' active-menu';
     },
 	//eventtab functions start
-	createTable: function(){
-		//console.log("creating table");
+	createTable: function(event){
+		var actor = document.getElementById('actorFilter').value;
+		var action = document.getElementById('actionFilter').value;
+		var tag = document.getElementById('tagFilterv').value;
+		var artifact = document.getElementById('artifactFilter').value;
+		if(actor === ''){actor = 'any';}
+		if(action === ''){action = 'any';}
+		if(tag === ''){tag = 'any';}
+		if(artifact === ''){artifact = 'any';}
 		//AJAX
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			//console.log(xhttp.readyState);
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				//console.log(JSON.parse(xhttp.responseText));
-				App.instance.data = JSON.parse(xhttp.responseText);
 				var data = JSON.parse(xhttp.responseText);				
 				var table = document.getElementById('EventTable');
 				table.innerHTML = '';
-				
-				var actors = [];
-				var actions = [];
 				var add = true;
 				for(var i=0; i<data.length; i++){
-					//console.log(data[i]);
 					var row = table.insertRow(i);
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time.substring(0, 10);
-					
 					col = row.insertCell(1);
 					for(var j=0; j<i; j++){
 						if(data[i].context !== "" && data[j].context === data[i].context && data[j].user !== data[i].user){
@@ -143,43 +149,21 @@
 					col = row.insertCell(5);
 					col.innerHTML = data[i].context;
 					table.appendChild(row);
-					for(var j=0; j<actors.length+1; j++){
-						if(actors[j] === data[i].user){add = false;}
-					}
-					if(add !== false){
-						actors.push(data[i].user);
-					}
-					add = true;
-					for(var j=0; j<actions.length+1; j++){
-						if(actions[j] === data[i].action){add = false;}
-					}
-					if(add !== false){
-						actions.push(data[i].action);
-					}
-					add = true;
-					for(var j=0; j<App.instance.availableTags.length+1; j++){
-						if(App.instance.availableTags[j] === data[i].context){add = false;}
-					}
-					if(add !== false && data[i].context !== ""){
-						App.instance.availableTags.push(data[i].context);
-					}
-					add = true;
-					for(var j=0; j<App.instance.availableArtifacts.length+1; j++){
-						if(App.instance.availableArtifacts[j] === data[i].document){add = false;}
-					}
-					if(add !== false && data[i].document !== ""){
-						App.instance.availableArtifacts.push(data[i].document);
-					}
-					add = true;
 				}
-				//console.log(App.instance.availableTags);
-				//console.log(App.instance.availableArtifacts);
 				var p = document.getElementById('EventCount');
 				p.innerHTML = (table.rows.length+' events are shown');
+			}
+		};
+		xhttp.open("GET", "php/GetInfo.php?actor="+actor+"&action="+action+"&tag="+tag+"&artifact="+artifact, true);
+		xhttp.send();
+	},
+	ActorFilters: function(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var actors = JSON.parse(xhttp.responseText);
 				actors.sort();
 				actors.reverse();
-				actions.sort();
-				actions.reverse();
 				var select = document.getElementById('actorFilter');
 				if(select.options.length === 1){
 					for(var i=0; i<actors.length; i++){
@@ -189,6 +173,18 @@
 						select.add(option, 1);
 					}
 				}
+			}
+		};
+		xhttp.open("GET", "php/GetInfo.php?ActorFilter", true);
+		xhttp.send();
+	},
+	ActionFilters: function(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var actions = JSON.parse(xhttp.responseText);
+				actions.sort();
+				actions.reverse();
 				var select = document.getElementById('actionFilter');
 				if(select.options.length === 1){
 					for(var i=0; i<actions.length; i++){
@@ -200,36 +196,28 @@
 				}
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?table", true);
+		xhttp.open("GET", "php/GetInfo.php?ActionFilter", true);
 		xhttp.send();
 	},
-	FilterEvents: function(event){
-		var actor = document.getElementById('actorFilter');
-		var action = document.getElementById('actionFilter');
-		var tag = document.getElementById('tagFilterv');
-		var artifact = document.getElementById('artifactFilter');
-		var table = document.getElementById('EventTable');
-		var rowCount = table.rows.length;
-		var p = document.getElementById('EventCount');
-		if(actor.value === "" && action.value === "" && tag.value === "" && artifact.value === ""){
-			for(var i=0; i<table.rows.length; i++){
-				table.rows[i].style.display = '';
-				p.innerHTML = (table.rows.length+' events are shown');
+	TagFilters: function(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				App.instance.availableTags = JSON.parse(xhttp.responseText);
 			}
-		}else{
-			//console.log(table.rows[0]);
-			//console.log(table.rows[0].cells[1]);
-			//console.log(table.rows[0].cells[1].innerHTML);
-			for(var i=0; i<table.rows.length; i++){
-				if(( actor.value !== "" && actor.value !== table.rows[i].cells[2].innerHTML) || ( action.value !== "" && action.value !== table.rows[i].cells[3].innerHTML) || ( tag.value !== "" && tag.value !== table.rows[i].cells[5].innerHTML) || ( artifact.value !== "" && artifact.value !== table.rows[i].cells[4].innerHTML)){
-					table.rows[i].style.display = 'none';
-					rowCount--;
-				}else{
-					table.rows[i].style.display = '';
-				}
+		};
+		xhttp.open("GET", "php/GetInfo.php?TagFilter", true);
+		xhttp.send();
+	},
+	ArtifactFilters: function(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				App.instance.availableArtifacts = JSON.parse(xhttp.responseText);
 			}
-			p.innerHTML = (rowCount+' events are shown');
-		}
+		};
+		xhttp.open("GET", "php/GetInfo.php?ArtifactFilter", true);
+		xhttp.send();
 	},
 	tagFilterAutoComplete: function(event){
 		$("#tagFilter").autocomplete({
