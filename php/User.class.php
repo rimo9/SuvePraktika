@@ -104,4 +104,37 @@ class User{
 		$stmt->close();
 		return $entries;
 	}
+	//gets all different words and their count
+	function getWords(){
+		$entries = array();
+		mysqli_set_charset($this->connection,"utf8");
+		$stmt = $this->connection->prepare("SELECT DISTINCT context, COUNT(*) FROM DVS GROUP BY context");
+		$stmt->bind_result( $context, $count);
+		$stmt->execute();
+		while($stmt->fetch()){
+			$object = new StdClass();
+			$object->context = $context;
+			$object->count = $count;
+			array_push($entries, $object);
+		}
+		$stmt->close();
+		return $entries;
+	}
+	//gets all info about inserted word
+	function getWordInfo($word){
+		$entries = array();
+		mysqli_set_charset($this->connection,"utf8");
+		$stmt = $this->connection->prepare("SELECT document, user FROM DVS WHERE context = ?");
+		$stmt->bind_param("s", $word);
+		$stmt->bind_result($artifact, $actor);
+		$stmt->execute();
+		while($stmt->fetch()){
+			$object = new StdClass();
+			$object->actor = $actor;
+			$object->artifact = $artifact;
+			array_push($entries, $object);
+		}
+		$stmt->close();
+		return $entries;
+	}
 }?>

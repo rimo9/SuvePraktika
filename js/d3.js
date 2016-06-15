@@ -2,7 +2,7 @@
   $(function() {
     //I create the tabs and delete the value of the filters
     $("#graph-tabs").tabs();
-    tagFilterv.value = "";
+    //tagFilterv.value = "";
     selectEventAmount.value = 1;
     var uptake = "";
 
