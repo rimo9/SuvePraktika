@@ -62,7 +62,7 @@
 	  this.bindEvents();
     },
 	bindEvents: function(){
-		document.querySelector('#tagFilter').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
+		document.querySelector('#tagFilterv').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 		document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 		document.querySelector('#FilterSubmit').addEventListener('click', this.FilterEvents.bind(this));
 		document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
@@ -206,7 +206,7 @@
 	FilterEvents: function(event){
 		var actor = document.getElementById('actorFilter');
 		var action = document.getElementById('actionFilter');
-		var tag = document.getElementById('tagFilter');
+		var tag = document.getElementById('tagFilterv');
 		var artifact = document.getElementById('artifactFilter');
 		var table = document.getElementById('EventTable');
 		var rowCount = table.rows.length;

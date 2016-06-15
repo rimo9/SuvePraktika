@@ -167,6 +167,30 @@ a:hover {
 }
 
 
+
+
+#viz {
+text-align: center;
+}
+
+
+
+
+#filesSNTable tbody.scrollContent {
+  max-height:160px;
+}
+
+#tagsSNTable tbody.scrollContent {
+  max-height:160px;
+}
+
+#textSN {
+	position:absolute;
+	right:50px;
+
+}
+
+
 /* Content */
 
 #content {
@@ -199,8 +223,9 @@ a:hover {
 	width: 1400px;
 	margin: 0px auto;
 	padding: 10px 10px;
-	overflow: scroll;
+	overflow: auto;
 	max-height:800px;
+	
    
 
 }
@@ -272,6 +297,7 @@ table, tr, td{
 	text-align: center;
 	border: 2px solid #9fa8a3;
 	background:#e3e0cf;
+
 }
 td{
 	padding-left: 5px;
@@ -280,9 +306,48 @@ td{
 .wordcloud{
 	border: 1px solid #036;
 	height: 7in;
-	margin: 0.5in auto;
+	
 	padding: 0;
 	page-break-after: always;
 	page-break-inside: avoid;
 	width: 7in;
+	background-color: white;
+	float:left;
+}
+svg {
+
+    height: 700px;
+    width: 700px;
+	background-color:WHITE;
+    border: 1px solid gray;
+	float: left;
+	top: 0px;
+	
+  }
+/* SCROLL TABLAS */
+tbody.fixedHeader {
+	height: 20px;
+}
+
+thead.fixedHeader tr {
+	display: block;
+}
+
+tbody.scrollContent {
+	display: block;
+max-height: 200px;
+	overflow: auto;
+	width: 100%;
+}
+
+
+tbody.scrollContent2 {
+	display: block;
+max-height: 470px;
+	overflow: auto;
+	width: 100%;
+}
+
+thead.fixedHeader th {
+	width: 400px;
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,17 +12,38 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 	<!-- JS files-->
-	
+	<script src="d3/d3.v3.min.js"></script>
+	<script src="d3/d3.layout.cloud.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>-->
 	<script src="js/jquery.awesomeCloud-0.2.js"></script>
 	<script src="js/main.js"></script>
-	<!--<script src="js/d3.v3.min.js"></script>-->
+	<script src="js/d3.js"></script>
+	<script src="js/dashboardUtil.js"></script>
+	  <script>
+
+
+var edgelist = [];
+  var events = [];
+  var actions = [];
+  var users = [];
+  var tagsAutocomplete = [];
+  var artifactsAutocomplete = [];
+  var tags = [];
+  var tag2owner = new Object();
+  var document2owner = new Object();
+
+  </script>
 </head>
+
 <body>
   <div>
-    <!-- menu start -->
+
+	<!-- header end -->
+	<main role="main">
+	<!-- eventtab start -->
+    <div id="eventtab" class="posti" >
 	<nav class="menu" id="menu">
 		<ul class="menu-list">
 			<li class="menu-item"><a href="#eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
@@ -29,15 +51,6 @@
 			<li class="menu-item"><a href="#contexttab" class="menu-link contexttab">Tag Cloud</a></li>
 		</ul>
 	</nav>
-	<!-- menu end -->
-	<!-- header start -->
-	<div id="header">
-		
-	</div>
-	<!-- header end -->
-	<main role="main">
-	<!-- eventtab start -->
-    <div id="eventtab" class="posti">
 			<div style="color:#000000">
 				<form id="eventFiltering" >
 					<select id="actorFilter">
@@ -48,9 +61,9 @@
 						<option value="">Choose an action to filter events</option>
 					</select>
 					<br>
-					<label for="tagFilter" style="color:#FFFFFF">Choose a tag to filter events:</label><br>
-					<input id="tagFilter"><br>
-					<label for="artifactFilter" style="color:#FFFFFF">Choose an artifact to filter events:</label><br>
+					<label for="tagFilter">Choose a tag to filter events:</label><br>
+					<input id="tagFilterv"><br>
+					<label for="artifactFilter">Choose an artifact to filter events:</label><br>
 					<input type="text" id="artifactFilter"><br>
 					<button type="button" id="FilterSubmit">Filter events</button>
 				</form>
@@ -65,28 +78,40 @@
 		
       </div>
 	  <!-- eventtab end -->
-
+         <select width="220"  style="width: 220px;" id="selectUser">
+            <option value="">Choose an actor to filter events</option>
+          </select>
+          <br><br><br>
+          <select width="220"  style="width: 220px;" id="selectAction">
+            <option value="">Choose an action to filter events</option>
+          </select>
 
 	<!-- actortab start -->
-    <div id="actortab"class="post">
+    <div id="actortab" class="posti">
+	<nav class="menu" id="menu">
+		<ul class="menu-list">
+			<li class="menu-item"><a href="#eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
+			<li class="menu-item"><a href="#actortab" class="menu-link actortab">Social Network</a></li>
+			<li class="menu-item"><a href="#contexttab" class="menu-link contexttab">Tag Cloud</a></li>
+		</ul>
+	</nav>
+	 <div id="viz">
+            <svg>
+            </svg>
+          </div>
 	
         <form id="snSelectionForm">
             <select width="220"  style="width: 320px;" id="selectEventType">
               <option value="">Represent all types of uptake events</option>
             </select>
             <br><br>
-            <div class="ui-widget" align="right" id="textSN">
-              <label for="selectEventAmount">Number of uptakes events needed to represent a link: </label><br>
-			</div>
-            <input width="220"  style="width: 310px;" id="selectEventAmount" value="1">
-            <br><br><br>
+			<label for="selectEventAmount">Number of uptakes events needed to represent a link:</label><br>
+			<input id="selectEventAmount" value="1">
+            <br>
 			<button type="button" name="Submit" value="Filter" onclick="createNetwork()" id="SNbutton">Represent new network</button>
-        </form>
-		
-          <div id="viz">
-            <svg>
-            </svg>
-          </div>
+      </form>
+		<br>
+         
 
 		<div class="ui-widget">
 				<div id="tagsSN">
@@ -100,7 +125,7 @@
 					</tbody>
 				  </table>
 				</div>
-
+				<br>
 
 				<div id="filesSN">
 				  <table id="filesSNTable" class="ui-widget-content ui-corner-all" >
@@ -114,14 +139,23 @@
 				  </table>
 				</div>
 		</div>
+		
 	</div>
 	<!-- actortab end -->
 
 
 	<!-- contexttab start -->
-    <div id="contexttab"class="post">
+    <div id="contexttab" class="post" >
+	<nav class="menu" id="menu">
+		<ul class="menu-list">
+			<li class="menu-item"><a href="#eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
+			<li class="menu-item"><a href="#actortab" class="menu-link actortab">Social Network</a></li>
+			<li class="menu-item"><a href="#contexttab" class="menu-link contexttab">Tag Cloud</a></li>
+		</ul>
+	</nav>
+	 <div id="wordcloud" class="wordcloud"></div>
 		  
-		   <div id="artifactsTagCloud">
+		  <div id="artifactsTagCloud">
 			<table id="TagsTagCloudTable">
 				<thead>
 					<tr>
@@ -144,8 +178,7 @@
 			</table>
 		  </div>
 		  
-		  <div id="wordcloud" class="wordcloud"></div>
-
+		 
 
     </div>
 	<!-- contexttab end -->
