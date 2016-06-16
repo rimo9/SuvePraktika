@@ -1,5 +1,5 @@
 (function( $ ) {
-	if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'actortab.php'){
+	if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'actortab'){
   $(function() {
     //I create the tabs and delete the value of the filters
     $("#graph-tabs").tabs();

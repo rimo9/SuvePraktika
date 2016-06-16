@@ -30,25 +30,26 @@
       //vaatan mis lehel olen
 
 	  //this.createTable();
-	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab.php'){
+	  console.log(location.pathname.substring(location.pathname.lastIndexOf("/") + 1));
+	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab'){
 		  this.ActorFilters();
 		  this.ActionFilters();
 		  this.TagFilters();
 		  this.ArtifactFilters();
 	  }
-	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab.php'){
+	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab'){
 		this.createCloud();
 	  }
 	  this.bindEvents();
     },
 	bindEvents: function(){
-		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab.php'){
+		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab'){
 			document.querySelector('#tagFilterv').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 			document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
 			document.querySelector('#FilterSubmit').addEventListener('click', this.createTable.bind(this));
 			document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
 		}
-		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab.php'){
+		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab'){
 			document.querySelector('#TagsTagCloudContent').addEventListener('click', this.tagCloudContentListener.bind(this));
 			document.querySelector('#EventsTagCloudContent').addEventListener('click', this.eventsCloudContentListener.bind(this));
 		}
