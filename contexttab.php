@@ -4,7 +4,7 @@
 	<!-- header end -->
 	<main role="main">
 	<!-- contexttab start -->
-    <div id="contexttab" class="post" >
+    
 	<nav class="menu" id="menu">
 		<ul class="menu-list">
 			<li class="menu-item"><a href="eventtab.php" class="menu-link eventtab active-menu">Filter Events</a></li>
@@ -12,6 +12,7 @@
 			<li class="menu-item"><a href="contexttab.php" class="menu-link contexttab">Tag Cloud</a></li>
 		</ul>
 	</nav>
+	<div id="contexttab" class="post" >
 		 <div id="wordcloud" class="wordcloud"></div>
 			  
 			<div id="artifactsTagCloud">
