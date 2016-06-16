@@ -22,7 +22,7 @@
             <br><br>
 			<label for="selectEventAmount">Number of uptakes events needed to represent a link:</label><br>
 			<input id="selectEventAmount" value="1">
-            <br>
+            <br><br>
 			<button type="button" name="Submit" value="Filter" onclick="createNetwork()" id="SNbutton">Represent new network</button>
       </form>
 		<br>

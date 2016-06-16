@@ -110,7 +110,7 @@
 					col.style.width = '50px';
 					col = row.insertCell(4);
 					col.innerHTML = data[i].document;
-					col.style.width = '500px';
+					col.style.width = '700px';
 					col = row.insertCell(5);
 					col.innerHTML = data[i].context;
 					col.style.width = '250px';

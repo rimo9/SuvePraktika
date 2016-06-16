@@ -15,23 +15,23 @@
 					<select id="actorFilter">
 						<option value="">Choose an actor to filter events</option>
 					</select>
-					<br>
+					<br><br>
 					<select id="actionFilter">
 						<option value="">Choose an action to filter events</option>
 					</select>
-					<br>
+					<br><br>
 					<label for="tagFilter">Choose a tag to filter events:</label><br>
-					<input id="tagFilterv"><br>
+					<input id="tagFilterv"><br><br>
 					<label for="artifactFilter">Choose an artifact to filter events:</label><br>
 					<input type="text" id="artifactFilter"><br>
 					<button type="button" id="FilterSubmit">Filter events</button>
 				</form>
 			</div>
-
+		<center>
 		<div id="DataTable">
-		<p id="EventCount" align="center">List of events</p>
+		<p id="EventCount" align="center"></p>
 		<table id="EventTable" style="width:100% height:100%"></table>
-		</div>
+		</div></center>
 	  
 		
 		
