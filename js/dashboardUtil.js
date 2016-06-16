@@ -57,11 +57,11 @@ function printArtifactsFromTag(tag) {
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				//I include here the value of the owner, so it will be very easy to paint it in red when clicking on a user
 				cell2.setAttribute('data-owner',document2owner[events[i].document]);
 
@@ -109,11 +109,11 @@ function printArtifactsFromTag(tag) {
 					var cell1=row.insertCell(0);
 					var cell2=row.insertCell(1);
 
-					cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 					cell1.innerHTML=j+1;
 					cell1.style.width = '20px';
 
-					cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 
 					//I include here the value of the owner, so it will be very easy to paint it in red when clicking on a user
 					cell2.setAttribute('data-owner',document2owner[events[i].document]);
@@ -207,11 +207,11 @@ function printUsersFromTag(tag) {
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				//Here I define the width of the cell
 				cell2.style.width = '370px';
 
@@ -264,11 +264,11 @@ function printUsersFromTag(tag) {
 					var cell1=row.insertCell(0);
 					var cell2=row.insertCell(1);
 
-					cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 					cell1.innerHTML=j+1;
 					cell1.style.width = '20px';
 
-					cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 					if(events[i].user.length>40){
 
 						cell2.innerHTML=events[i].user.substring(0,38)+"...";
@@ -935,11 +935,12 @@ child.selectAll("line")
 					var cell1=row.insertCell(0);
 					var cell2=row.insertCell(1);
 
-					cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 					cell1.innerHTML=j+1;
 					cell1.style.width = '20px';
+					cell2.style.width = '360px';
 
-					cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 
 					if(events[i].document.length>50){
 
@@ -992,11 +993,11 @@ child.selectAll("line")
 						var cell1=row.insertCell(0);
 						var cell2=row.insertCell(1);
 
-						cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+						//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 						cell1.innerHTML=j+1;
 						cell1.style.width = '20px';
 
-						cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+						//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 						if(events[i].document.length>40){
 
 							cell2.innerHTML=events[i].document.substring(0,38)+"...";
@@ -1077,13 +1078,13 @@ child.selectAll("line")
 					var cell1=row.insertCell(0);
 					var cell2=row.insertCell(1);
 
-					cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 					cell1.innerHTML=j+1;
 					cell1.style.width = '20px';
 
-					cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+					//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 					//Here I define the width of the cell
-					cell2.style.width = '270px';
+					cell2.style.width = '360px';
 
 					if(events[i].tag.length>40){
 
@@ -1135,11 +1136,11 @@ child.selectAll("line")
 						var cell1=row.insertCell(0);
 						var cell2=row.insertCell(1);
 
-						cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+						//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 						cell1.innerHTML=j+1;
-						cell1.style.width = '20px';
+						//cell1.style.width = '20px';
 
-						cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+						//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 						if(events[i].tag.length>40){
 
 							cell2.innerHTML=events[i].tag.substring(0,38)+"...";
@@ -1237,13 +1238,13 @@ child.selectAll("line")
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				//Here I define the width of the cell
-				cell2.style.width = '270px';
+				cell2.style.width = '360px';
 
 				if(sharedFiles[i].length>40){
 
@@ -1268,11 +1269,11 @@ child.selectAll("line")
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				if(sharedFiles[i].length>40){
 
 					cell2.innerHTML=sharedFiles[i].substring(0,38)+"...";
@@ -1372,13 +1373,13 @@ child.selectAll("line")
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				//Here I define the width of the cell
-				cell2.style.width = '270px';
+				cell2.style.width = '360px';
 
 				if(sharedTags[i].length>40){
 
@@ -1403,11 +1404,11 @@ child.selectAll("line")
 				var cell1=row.insertCell(0);
 				var cell2=row.insertCell(1);
 
-				cell1.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell1.setAttribute('class',"ui-widget-header ui-corner-all");
 				cell1.innerHTML=j+1;
 				cell1.style.width = '20px';
 
-				cell2.setAttribute('class',"ui-widget-header ui-corner-all");
+				//cell2.setAttribute('class',"ui-widget-header ui-corner-all");
 				if(sharedTags[i].length>40){
 
 					cell2.innerHTML=sharedTags[i].substring(0,38)+"...";

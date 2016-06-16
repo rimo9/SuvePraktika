@@ -74,9 +74,11 @@
 				var add = true;
 				for(var i=0; i<data.length; i++){
 					var row = table.insertRow(i);
+					row.style.height = '25px';
 					var col = row.insertCell(0);
 					col.innerHTML = data[i].time.substring(0, 10);
 					col = row.insertCell(1);
+					col.style.width = '20px';
 					for(var j=0; j<i; j++){
 						if(data[i].context !== "" && data[j].context === data[i].context && data[j].user !== data[i].user){
 							col.innerHTML = 'U';
@@ -102,12 +104,16 @@
 					}
 					col = row.insertCell(2);
 					col.innerHTML = data[i].user;
+					col.style.width = '100px';
 					col = row.insertCell(3);
 					col.innerHTML = data[i].action;
+					col.style.width = '50px';
 					col = row.insertCell(4);
 					col.innerHTML = data[i].document;
+					col.style.width = '500px';
 					col = row.insertCell(5);
 					col.innerHTML = data[i].context;
+					col.style.width = '250px';
 					table.appendChild(row);
 				}
 				var p = document.getElementById('EventCount');
@@ -253,9 +259,11 @@
 						var tr = document.createElement('tr');
 					tr.id = i;
 					var th = document.createElement('th');
+					th.style.width = "20px";
 					th.innerHTML = DocCount;
 					tr.appendChild(th);
 					var th = document.createElement('th');
+					th.style.width = "500px";
 					th.innerHTML = wordInfo[i].artifact;
 					th.id = wordInfo[i].actor;
 					tr.appendChild(th);
@@ -264,7 +272,7 @@
 					}
 				}
 				NrOfTagDocuments.innerHTML="There are "+(DocCount-1)+" documents related to the tag "+word;
-				
+				NrOfTagDocuments.style.width = "520px";
 				var list = document.getElementById('EventsTagCloudContent');
 				var NrOfEventDocuments = document.getElementById('TagCloudNrOfEventDocuments');
 				list.innerHTML = '';
@@ -281,13 +289,16 @@
 					exists = false;
 				}
 				NrOfEventDocuments.innerHTML=liOfUsers.length+" users employed the tag "+word;
+				NrOfEventDocuments.style.width = "220px";
 				for(var i=0; i<liOfUsers.length; i++){
 					var tr = document.createElement('tr');
 					tr.id = i;
 					var th = document.createElement('th');
+					th.style.width = "20px";
 					th.innerHTML = i+1;
 					tr.appendChild(th);
 					var th = document.createElement('th');
+					th.style.width = "200px";
 					th.innerHTML = liOfUsers[i];
 					th.id = i;
 					tr.appendChild(th);

@@ -30,10 +30,10 @@
 
 		<div class="ui-widget">
 				<div id="tagsSN">
-				  <table id="tagsSNTable" class="ui-widget-content ui-corner-all" >
+				  <table id="tagsSNTable">
 					<thead class="fixedHeader">
 					  <tr>
-						<th class="ui-widget-header ui-corner-all">Click on an element to see the tags related</th>
+						<th>Click on an element to see the tags related</th>
 					  </tr>
 					</thead>
 					<tbody class="scrollContent">
@@ -43,10 +43,10 @@
 				<br>
 
 				<div id="filesSN">
-				  <table id="filesSNTable" class="ui-widget-content ui-corner-all" >
+				  <table id="filesSNTable">
 					<thead class="fixedHeader">
 					  <tr>
-						<th class="ui-widget-header ui-corner-all">Click on an element to see the files related</th>
+						<th>Click on an element to see the files related</th>
 					  </tr>
 					</thead>
 					<tbody class="scrollContent">

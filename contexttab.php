@@ -16,24 +16,24 @@
 			  
 			<div id="artifactsTagCloud">
 				<table id="TagsTagCloudTable">
-					<thead>
+					<thead class="tableHeader">
 						<tr>
 							<th id="TagCloudNrOfTagDocuments">Click on a tag to see the events related</th>
 						</tr>
 					</thead>
-					<tbody id="TagsTagCloudContent"></tbody>
+					<tbody id="TagsTagCloudContent" class="tablecontent"></tbody>
 				</table>
 			</div>
 			<br><br>
 			  
-			<div id="eventsTagCloud">
+			<div id="eventsTagCloud" >
 				<table id="eventsTagCloud">
-					<thead>
+					<thead class="tableHeader">
 						<tr>
 							<th id="TagCloudNrOfEventDocuments">Click on a tag to see the events related</th>
 						</tr>
 					</thead>
-					<tbody id="EventsTagCloudContent"></tbody>
+					<tbody id="EventsTagCloudContent" class="tablecontent"></tbody>
 				</table>
 			</div>
 			  

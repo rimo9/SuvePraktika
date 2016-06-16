@@ -1,9 +1,10 @@
 (function( $ ) {
+	if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'actortab.php'){
   $(function() {
     //I create the tabs and delete the value of the filters
     $("#graph-tabs").tabs();
     //tagFilterv.value = "";
-    selectEventAmount.value = 1;
+   // selectEventAmount.value = 1;
     var uptake = "";
 
     //I get the events from the csv, add them into an array of events.
@@ -149,4 +150,5 @@ createNetwork();
 
 
     });
+	}
     })(jQuery);
