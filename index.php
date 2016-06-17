@@ -10,7 +10,7 @@
 		$page = $url->segment(1);
 	}
 	
-	//echo $url->segment(2);
+	//echo $page;
 	switch($page){
 		case 'eventtab' :
 			include 'pages/eventtab.php';

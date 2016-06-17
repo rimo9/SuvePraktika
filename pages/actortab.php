@@ -5,9 +5,9 @@
     
 	<nav class="menu" id="menu">
 		<ul class="menu-list">
-			<li class="menu-item"><a href="eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
-			<li class="menu-item"><a href="actortab" class="menu-link actortab">Social Network</a></li>
-			<li class="menu-item"><a href="contexttab" class="menu-link contexttab">Tag Cloud</a></li>
+			<li class="menu-item"><a href="<?=$basepath?>eventtab" class="menu-link eventtab active-menu">Filter Events</a></li>
+			<li class="menu-item"><a href="<?=$basepath?>actortab" class="menu-link actortab">Social Network</a></li>
+			<li class="menu-item"><a href="<?=$basepath?>contexttab" class="menu-link contexttab">Tag Cloud</a></li>
 		</ul>
 	</nav>
 	<div id="actortab" class="posti">

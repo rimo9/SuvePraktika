@@ -14,11 +14,14 @@
 	this.availableTags = [];
 	this.availableArtifacts = [];
 	this.TagCloudWords = null;
+    this.address = '';
+    this.pageCount = 0;
+	this.clicked = true;
 
     //Start
     this.init();
   };
-  
+
   window.App = App;
 
 
@@ -30,46 +33,91 @@
       //vaatan mis lehel olen
 
 	  //this.createTable();
-	  console.log(location.pathname.substring(location.pathname.lastIndexOf("/") + 1));
-	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab'){
+      //console.log(location.pathname.split('/')[3]);
+      //console.log(location.pathname.split('/').length);
+	this.address = '';
+    for(var i=0; i<location.pathname.split('/').length-4; i++){
+      this.address+='../';
+    }
+	//console.log(location.pathname.substring(location.pathname.lastIndexOf("/")+1));
+	//console.log(location.pathname.substring(location.pathname.lastIndexOf("/") + 1));
+	  if(location.pathname.split('/')[3] === 'eventtab'){
 		  this.ActorFilters();
 		  this.ActionFilters();
 		  this.TagFilters();
 		  this.ArtifactFilters();
 	  }
-	  if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab'){
+	  if(location.pathname.split('/')[3] === 'contexttab'){
 		this.createCloud();
+	  }
+	  if(location.pathname.split('/').length === 8){
+		  setTimeout( function(){
+			  App.instance.clicked = false;
+			  App.instance.createTable()
+		  } , 50);
+	  }
+	  if(location.pathname.split('/').length === 5){
+		  this.tagCloudListener(location.pathname.split('/')[4]);
 	  }
 	  this.bindEvents();
     },
 	bindEvents: function(){
-		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'eventtab'){
+		if(location.pathname.split('/')[3] === 'eventtab'){
 			document.querySelector('#tagFilterv').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 			document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
+			document.querySelector('#FilterSubmit').addEventListener('click', function(){App.instance.clicked = true;});
 			document.querySelector('#FilterSubmit').addEventListener('click', this.createTable.bind(this));
 			document.querySelector('#EventTable').addEventListener('click', this.ShowDialog.bind(this));
 		}
-		if(location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === 'contexttab'){
+		if(location.pathname.split('/')[3] === 'contexttab'){
 			document.querySelector('#TagsTagCloudContent').addEventListener('click', this.tagCloudContentListener.bind(this));
 			document.querySelector('#EventsTagCloudContent').addEventListener('click', this.eventsCloudContentListener.bind(this));
 		}
 	},
 	//eventtab functions start
 	createTable: function(event){
-		var actor = document.getElementById('actorFilter').value;
-		var action = document.getElementById('actionFilter').value;
-		var tag = document.getElementById('tagFilterv').value;
-		var artifact = document.getElementById('artifactFilter').value;
+    //console.log("making table");
+		//console.log(document.getElementById('actorFilter').value !== location.pathname.split('/')[4] );
+		var actor = '';
+		var action = '';
+		var tag = '';
+		var artifact = '';
+		if(this.clicked){
+			actor = document.getElementById('actorFilter').value;
+			action = document.getElementById('actionFilter').value;
+			tag = document.getElementById('tagFilterv').value;
+			artifact = document.getElementById('artifactFilter').value;
+		}else{
+			actor = location.pathname.split('/')[4];
+			action = location.pathname.split('/')[5];
+			tag = location.pathname.split('/')[6];
+			if(location.pathname.split('/')[7] === 'any'){
+				artifact = location.pathname.split('/')[7];
+				artifact_push = 'any';
+			}else{
+				var num = location.pathname.split('/')[7];
+				artifact = this.availableArtifacts[num];
+			}
+		}
 		if(actor === ''){actor = 'any';}
 		if(action === ''){action = 'any';}
 		if(tag === ''){tag = 'any';}
-		if(artifact === ''){artifact = 'any';}
+		if(artifact === ''){artifact = 'any'; var artifact_push = 'any';}else{
+			for(var i=0; i<this.availableArtifacts.length ;i++){
+				if(this.availableArtifacts[i] === artifact){
+					var artifact_push = i;
+				}
+			}
+		}
+		history.pushState('', "New Title", '/'+location.pathname.split('/')[1]+'/'+location.pathname.split('/')[2]+'/'+location.pathname.split('/')[3]+'/'+actor+'/'+action+'/'+tag+'/'+artifact_push);
+
 		//AJAX
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			//console.log(xhttp.readyState);
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				var data = JSON.parse(xhttp.responseText);				
+				//console.log(xhttp.responseText);
+				var data = JSON.parse(xhttp.responseText);
 				var table = document.getElementById('EventTable');
 				table.innerHTML = '';
 				var add = true;
@@ -121,7 +169,11 @@
 				p.innerHTML = (table.rows.length+' events are shown');
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?actor="+actor+"&action="+action+"&tag="+tag+"&artifact="+artifact, true);
+		//console.log(actor);
+		//console.log(action);
+		//console.log(tag);
+		//console.log(artifact);
+		xhttp.open("GET", "../../../../php/GetInfo.php?actor="+actor+"&action="+action+"&tag="+tag+"&artifact="+artifact, true);
 		xhttp.send();
 	},
 	ActorFilters: function(){
@@ -142,7 +194,7 @@
 				}
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?ActorFilter", true);
+		xhttp.open("GET", this.address+"php/GetInfo.php?ActorFilter", true);
 		xhttp.send();
 	},
 	ActionFilters: function(){
@@ -163,7 +215,7 @@
 				}
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?ActionFilter", true);
+		xhttp.open("GET", this.address+"php/GetInfo.php?ActionFilter", true);
 		xhttp.send();
 	},
 	TagFilters: function(){
@@ -173,21 +225,22 @@
 				App.instance.availableTags = JSON.parse(xhttp.responseText);
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?TagFilter", true);
+		xhttp.open("GET", this.address+"php/GetInfo.php?TagFilter", true);
 		xhttp.send();
 	},
 	ArtifactFilters: function(){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+        //console.log(xhttp.responseText);
 				App.instance.availableArtifacts = JSON.parse(xhttp.responseText);
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?ArtifactFilter", true);
+		xhttp.open("GET", this.address+"php/GetInfo.php?ArtifactFilter", true);
 		xhttp.send();
 	},
 	tagFilterAutoComplete: function(event){
-		$("#tagFilter").autocomplete({
+		$("#tagFilterv").autocomplete({
 			source: this.availableTags
 		});
 	},
@@ -205,10 +258,12 @@
 	},
 	//eventtab functions end
 	//actortab functions start
-	
+
 	//actortab functions end
 	//contexttab functions start
 	createCloud: function(){
+		var aadress = '';
+		if(location.pathname.split('/')[4] != null){aadress = '../'}
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -240,17 +295,18 @@
 				});
 			}
 		};
-		  xhttp.open("GET", "php/GetInfo.php?TagCloud", true);
+		  xhttp.open("GET", aadress+"php/GetInfo.php?TagCloud", true);
 		  xhttp.send();
 	},
 	tagCloudListener: function(word){
-		console.log(word);
-		
+		//console.log(word);
+		//console.log(location.pathname.split('/')[4]);
+		history.pushState('', "New Title", '/'+location.pathname.split('/')[1]+'/'+location.pathname.split('/')[2]+'/'+location.pathname.split('/')[3]+'/'+word);
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				var wordInfo = JSON.parse(xhttp.responseText);
-				
+
 				var TagCloudContent = document.getElementById('TagsTagCloudContent');
 				var NrOfTagDocuments = document.getElementById('TagCloudNrOfTagDocuments');
 				TagCloudContent.innerHTML = '';
@@ -307,7 +363,7 @@
 				}
 			}
 		};
-		xhttp.open("GET", "php/GetInfo.php?TagCloudWord="+word, true);
+		xhttp.open("GET", "../php/GetInfo.php?TagCloudWord="+word, true);
 		xhttp.send();
 	},
 	eventsCloudContentListener: function(event){
@@ -349,7 +405,7 @@
 		}
 	}
 	//contexttab functions end
-	
+
   };
 
   window.onload = function(){
