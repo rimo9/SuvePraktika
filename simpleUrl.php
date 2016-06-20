@@ -1,5 +1,6 @@
 <?php
 	class simpleUrl{
+		//This class is responsible for getting url and making it into segments
 		var $site_path;
 		function __construct($site_path){
 			$this->site_path = $this->removeSlash($site_path);

@@ -18,7 +18,7 @@
     this.pageCount = 0;
 	this.clicked = true;
 
-    //Start
+    //Start app
     this.init();
   };
 
@@ -29,32 +29,26 @@
   //All functions come here
   App.prototype = {
     init: function(){
-      console.log('Successfully started');
-      //vaatan mis lehel olen
-
-	  //this.createTable();
-      //console.log(location.pathname.split('/')[3]);
-      //console.log(location.pathname.split('/').length);
-	this.address = '';
-    for(var i=0; i<location.pathname.split('/').length-4; i++){
-      this.address+='../';
-    }
-	//console.log(location.pathname.substring(location.pathname.lastIndexOf("/")+1));
-	//console.log(location.pathname.substring(location.pathname.lastIndexOf("/") + 1));
-	  if(location.pathname.split('/')[3] === 'eventtab'){
-		  this.ActorFilters();
-		  this.ActionFilters();
-		  this.TagFilters();
-		  this.ArtifactFilters();
-	  }
-	  if(location.pathname.split('/')[3] === 'contexttab'){
-		this.createCloud();
-	  }
-	  if(location.pathname.split('/').length === 8){
-		  setTimeout( function(){
-			  App.instance.clicked = false;
-			  App.instance.createTable()
-		  } , 50);
+		console.log('Successfully started');
+		//initial if statements to activate correct functions if needed corresponding to the current page
+		this.address = '';
+		for(var i=0; i<location.pathname.split('/').length-4; i++){
+		  this.address+='../';
+		}
+		if(location.pathname.split('/')[3] === 'eventtab'){
+			this.ActorFilters();
+			this.ActionFilters();
+			this.TagFilters();
+			this.ArtifactFilters();
+		}
+	    if(location.pathname.split('/')[3] === 'contexttab'){
+		    this.createCloud();
+	    }
+	    if(location.pathname.split('/').length === 8){
+		    setTimeout( function(){
+				App.instance.clicked = false;
+				App.instance.createTable()
+		    } , 50);
 	  }
 	  if(location.pathname.split('/').length === 5){
 		  this.tagCloudListener(location.pathname.split('/')[4]);
@@ -62,6 +56,7 @@
 	  this.bindEvents();
     },
 	bindEvents: function(){
+		//listenes different clicks and keys if current page is same as in if statement
 		if(location.pathname.split('/')[3] === 'eventtab'){
 			document.querySelector('#tagFilterv').addEventListener('keyup', this.tagFilterAutoComplete.bind(this));
 			document.querySelector('#artifactFilter').addEventListener('keyup', this.artifactFilterAutoComplete.bind(this));
@@ -76,8 +71,7 @@
 	},
 	//eventtab functions start
 	createTable: function(event){
-    //console.log("making table");
-		//console.log(document.getElementById('actorFilter').value !== location.pathname.split('/')[4] );
+		//creates table to eventtab page with correct values found in url or in the form
 		var actor = '';
 		var action = '';
 		var tag = '';
@@ -111,12 +105,10 @@
 		}
 		history.pushState('', "New Title", '/'+location.pathname.split('/')[1]+'/'+location.pathname.split('/')[2]+'/'+location.pathname.split('/')[3]+'/'+actor+'/'+action+'/'+tag+'/'+artifact_push);
 
-		//AJAX
+		//AJAX sends selected filtered values to php and gets back all the table rows corresponding with those filtered values
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-			//console.log(xhttp.readyState);
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				//console.log(xhttp.responseText);
 				var data = JSON.parse(xhttp.responseText);
 				var table = document.getElementById('EventTable');
 				table.innerHTML = '';
@@ -128,6 +120,7 @@
 					col.innerHTML = data[i].time.substring(0, 10);
 					col = row.insertCell(1);
 					col.style.width = '20px';
+					//creates dialog where needed
 					for(var j=0; j<i; j++){
 						if(data[i].context !== "" && data[j].context === data[i].context && data[j].user !== data[i].user){
 							col.innerHTML = 'U';
@@ -169,14 +162,11 @@
 				p.innerHTML = (table.rows.length+' events are shown');
 			}
 		};
-		//console.log(actor);
-		//console.log(action);
-		//console.log(tag);
-		//console.log(artifact);
 		xhttp.open("GET", "../../../../php/GetInfo.php?actor="+actor+"&action="+action+"&tag="+tag+"&artifact="+artifact, true);
 		xhttp.send();
 	},
 	ActorFilters: function(){
+		//gets all different users to fill dropdown on filter events page
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -198,6 +188,7 @@
 		xhttp.send();
 	},
 	ActionFilters: function(){
+		//gets all different actions to fill dropdown on filter events page
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -219,6 +210,7 @@
 		xhttp.send();
 	},
 	TagFilters: function(){
+		//gets all different tags to add to array so autocomplete can use them
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -229,10 +221,10 @@
 		xhttp.send();
 	},
 	ArtifactFilters: function(){
+		//gets all different documents to add to array so autocomplete can use them
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-        //console.log(xhttp.responseText);
 				App.instance.availableArtifacts = JSON.parse(xhttp.responseText);
 			}
 		};
@@ -240,28 +232,28 @@
 		xhttp.send();
 	},
 	tagFilterAutoComplete: function(event){
+		//autocompletes tagfilter input box on filter events page
 		$("#tagFilterv").autocomplete({
 			source: this.availableTags
 		});
 	},
 	artifactFilterAutoComplete: function(event){
+		//autocompletes artifact filter input box on filter events page
 		$("#artifactFilter").autocomplete({
 			source: this.availableArtifacts
 		});
 	},
 	ShowDialog: function(event){
+		//shows dialogbox on filter events page if clicked
 		if(event.target.id.startsWith("dialog")){
-			//console.log(event.target.id);
-			//console.log(parseInt(event.target.id.substring(6)));
 			$( "#dialogBox"+(parseInt(event.target.id.substring(6))) ).dialog();
 		}
 	},
 	//eventtab functions end
-	//actortab functions start
 
-	//actortab functions end
 	//contexttab functions start
 	createCloud: function(){
+		//creates tagcloud with the words asked from php using ajax
 		var aadress = '';
 		if(location.pathname.split('/')[4] != null){aadress = '../'}
 		var xhttp = new XMLHttpRequest();
@@ -299,8 +291,7 @@
 		  xhttp.send();
 	},
 	tagCloudListener: function(word){
-		//console.log(word);
-		//console.log(location.pathname.split('/')[4]);
+		//takes the word that is clicked on tag cloud, sends it to php to get all information related to that word and then makes to tables with that information
 		history.pushState('', "New Title", '/'+location.pathname.split('/')[1]+'/'+location.pathname.split('/')[2]+'/'+location.pathname.split('/')[3]+'/'+word);
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
@@ -336,7 +327,6 @@
 				var liOfUsers = [];
 				var exists = false;
 				for(var i=0; i<wordInfo.length; i++){
-					//console.log(wordInfo[i].actor);
 					for(var j=0; j<liOfUsers.length ; j++){
 						if(wordInfo[i].actor === liOfUsers[j]){
 							exists = true;
@@ -367,6 +357,7 @@
 		xhttp.send();
 	},
 	eventsCloudContentListener: function(event){
+		//on tag cloud page something it clicked on a table this function highlights correct rows on first table
 		if(event.target.id !== 'EventsTagCloudContentTagCloudContent' && event.target.id !== 'EventsTagCloudContent'){
 			for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
 				if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].id === event.target.id){
@@ -386,6 +377,7 @@
 		}
 	},
 	tagCloudContentListener: function(event){
+		//on tag cloud page something it clicked on a table this function highlights correct rows on second table
 		if(event.target.id !== 'TagsTagCloudContent' && event.target.id !== 'TagsTagCloudContent'){
 			for(var i=0; i<event.target.parentNode.parentNode.rows.length; i++){
 				if(event.target.id !== "" && event.target.parentNode.parentNode.rows[i].cells[1].innerHTML === event.target.innerHTML){

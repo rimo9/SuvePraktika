@@ -25,7 +25,6 @@
 					<input id="tagFilterv" name="tag"><br><br>
 					<label for="artifactFilter">Choose an artifact to filter events:</label><br>
 					<input type="text" id="artifactFilter" name="artifact"><br><br>
-					<!--<input type="submit" id="FilterSubmit" value="Filter Events">-->
 					<button type="button" id="FilterSubmit">Filter events</button>
 				</form>
 			</div>

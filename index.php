@@ -1,4 +1,5 @@
 <?php
+	//This is responsible for routing to correct page in pages folder
 	include 'simpleUrl.php';
 	
 	$url = new simpleUrl('/~rimoesk/SuvePraktika/');
@@ -10,7 +11,6 @@
 		$page = $url->segment(1);
 	}
 	
-	//echo $page;
 	switch($page){
 		case 'eventtab' :
 			include 'pages/eventtab.php';

@@ -1,4 +1,5 @@
 <?php
+	//this part of code is respnsible for getting the URL, making it into different parts
 	function getCurrentUri()
 	{
 		$basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
@@ -17,6 +18,7 @@
 		if(trim($route) != '')
 			array_push($routes, $route);
 	}
+	//this part of code takes the url routes and adds correct amount of '../' to get correct files from correct folders
   for($i=0; $i<((count($routes)-1)/2)-1; $i++){
     $address.='../';
   }
